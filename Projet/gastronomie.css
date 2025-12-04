@@ -1,0 +1,183 @@
+
+/* Importation des polices Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Styles généraux */
+* {
+    font-family: 'Arimo';
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0 auto;
+    background-color: #fffaf5;
+    color: #333;
+    padding-top: 80px;
+}
+
+body section{
+    padding: 10px;
+}
+
+/* Styles pour l'en-tête */
+header.entete {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e63946;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+header.entete.hidden {
+    transform: translateY(-100%);
+}
+header.entete img{
+    width: 60px;
+}
+
+/* Styles pour la section page-haut (page d'accueil avec image de fond) */
+section.page-haut{
+    background: url("image/Fond-ecran.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+}
+
+/* Styles pour la page de bienvenue (page d'accueil) */
+.page-d-accueil {
+     padding: 20px 50px;
+}
+
+.grand-titre {
+    color: rgb(11, 174, 11);
+    font-weight: 900;
+    font-style: italic;
+    font-size: 80px;
+    font-family: 'Fira Sans';
+}
+
+.defiler {
+    color: green;
+    text-decoration: none;
+    position: absolute;
+    bottom: 150px;
+}
+
+/* Styles pour le menu de navigation */
+nav.navigation li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+nav.navigation {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    width: 400px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+nav.navigation li {
+    transition: transform 0.2s ease;
+}
+
+nav.navigation li:hover {
+    transform: scale(1.1);
+}
+
+nav.navigation a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Styles pour la section introduction */
+.introduction {
+    display: absolute;
+    padding: 10px;
+}
+
+section.introduction p.introduction1 {
+    letter-spacing: 0.3px;
+    font-style: italic;
+    padding: 10px;
+}
+
+/* Styles pour la section plats */
+section.plats {
+    padding: 40px 60px;
+}
+
+section.plats h1 {
+    font-size: 35px;
+    font-family: 'Fira Sans';
+    font-weight: 400;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+section.plats h1:before {
+    content: "";
+    position: absolute;
+    background-color: green;
+    width: 50px;
+    height: 7px;
+    bottom: -10px;
+}
+
+/* Styles pour chaque plat en ligne */
+.plat {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.plat img {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.plat-text {
+    max-width: 600px;
+}
+
+.plat-text h2 {
+    color: #e63946;
+    font-family: 'Fira Sans';
+    font-size: 28px;
+    margin: 0;
+}
+
+.texte-plat p {
+    font-size: 16px;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+/* Styles pour le pied de page */
+footer {
+    display: flex;
+    background-color: green;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+footer a.cgv {
+    text-decoration: none;
+    color: white;
+}

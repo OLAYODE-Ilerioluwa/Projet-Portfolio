@@ -27,6 +27,6 @@ Contribuer à des projets open-source
 📧 Email : iolayode@lerebours.fr
 💼 LinkedIn : www.linkedin.com/in/ileri-olayode
 
-🌐 Portfolio : 
+🌐 Portfolio : https://github.com/OLAYODE-Ilerioluwa/Projet-Portfolio
 
 ⭐ N’hésite pas à laisser une étoile sur mes projets si tu les apprécies !

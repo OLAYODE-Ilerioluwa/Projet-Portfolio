@@ -1,4 +1,0 @@
-Projet Site Web
-
-"!" pour generer une base HTML
-"alt" pour les malvoyant ou mal entendant

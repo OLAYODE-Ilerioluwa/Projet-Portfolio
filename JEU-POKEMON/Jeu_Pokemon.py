@@ -27,7 +27,32 @@ class Game:
 
         # États du jeu
         self.running = True  # Booléen pour savoir si le jeu tourne
-        self.game_started = False  # Booléen pour savoir si le jeu a commencé
+        self.state = 'intro'  # États possibles: 'intro', 'menu', 'options', 'playing'
+
+        # Menu principal
+        self.menu_options = ['Play', 'Options', 'Quit']
+        self.selected_option = 0
+
+        # Sous-menu Options
+        self.options_options = ['Window Size', 'FPS', 'Difficulty', 'Back']
+        self.selected_option_options = 0
+
+        # Paramètres
+        self.settings = {
+            'window_size': (800, 600),
+            'fps': 30,
+            'difficulty': 'Medium'
+        }
+
+        # Options pour les paramètres
+        self.window_sizes = [(800, 600), (1024, 768)]
+        self.fps_options = [30, 60, 120]
+        self.difficulty_options = ['Easy', 'Medium', 'Hard']
+
+        # Indices actuels pour les options
+        self.window_size_index = 0
+        self.fps_index = 0
+        self.difficulty_index = 1
 
         # Horloge pour contrôler les FPS (images par seconde)
         self.clock = pygame.time.Clock()
@@ -38,23 +63,97 @@ class Game:
             if event.type == pygame.QUIT:  # Si l'utilisateur ferme la fenêtre
                 self.running = False  # Arrête la boucle principale
             elif event.type == pygame.KEYDOWN:  # Si une touche est pressée
-                if event.key == pygame.K_SPACE and not self.game_started:  # Si c'est Espace et jeu pas commencé
-                    self.game_started = True  # Démarre le jeu
+                if self.state == 'intro':
+                    if event.key == pygame.K_SPACE:
+                        self.state = 'menu'
+                elif self.state == 'menu':
+                    if event.key == pygame.K_UP:
+                        self.selected_option = (self.selected_option - 1) % len(self.menu_options)
+                    elif event.key == pygame.K_DOWN:
+                        self.selected_option = (self.selected_option + 1) % len(self.menu_options)
+                    elif event.key == pygame.K_RETURN:
+                        if self.selected_option == 0:  # Play
+                            self.state = 'playing'
+                        elif self.selected_option == 1:  # Options
+                            self.state = 'options'
+                        elif self.selected_option == 2:  # Quit
+                            self.running = False
+                elif self.state == 'options':
+                    if event.key == pygame.K_UP:
+                        self.selected_option_options = (self.selected_option_options - 1) % len(self.options_options)
+                    elif event.key == pygame.K_DOWN:
+                        self.selected_option_options = (self.selected_option_options + 1) % len(self.options_options)
+                    elif event.key == pygame.K_LEFT:
+                        if self.selected_option_options == 0:  # Window Size
+                            self.window_size_index = (self.window_size_index - 1) % len(self.window_sizes)
+                            self.settings['window_size'] = self.window_sizes[self.window_size_index]
+                            self.screen = pygame.display.set_mode(self.settings['window_size'])
+                        elif self.selected_option_options == 1:  # FPS
+                            self.fps_index = (self.fps_index - 1) % len(self.fps_options)
+                            self.settings['fps'] = self.fps_options[self.fps_index]
+                        elif self.selected_option_options == 2:  # Difficulty
+                            self.difficulty_index = (self.difficulty_index - 1) % len(self.difficulty_options)
+                            self.settings['difficulty'] = self.difficulty_options[self.difficulty_index]
+                    elif event.key == pygame.K_RIGHT:
+                        if self.selected_option_options == 0:  # Window Size
+                            self.window_size_index = (self.window_size_index + 1) % len(self.window_sizes)
+                            self.settings['window_size'] = self.window_sizes[self.window_size_index]
+                            self.screen = pygame.display.set_mode(self.settings['window_size'])
+                        elif self.selected_option_options == 1:  # FPS
+                            self.fps_index = (self.fps_index + 1) % len(self.fps_options)
+                            self.settings['fps'] = self.fps_options[self.fps_index]
+                        elif self.selected_option_options == 2:  # Difficulty
+                            self.difficulty_index = (self.difficulty_index + 1) % len(self.difficulty_options)
+                            self.settings['difficulty'] = self.difficulty_options[self.difficulty_index]
+                    elif event.key == pygame.K_RETURN:
+                        if self.selected_option_options == 3:  # Back
+                            self.state = 'menu'
+                elif self.state == 'playing':
+                    if event.key == pygame.K_ESCAPE:
+                        self.state = 'menu'
 
     # Méthode pour mettre à jour l'état du jeu (logique)
     def update(self):
-        if not self.game_started:  # Si le jeu n'a pas commencé
+        if self.state == 'intro':  # Si en état intro
             # Anime les frames : passe à la suivante
             self.current_frame = (self.current_frame + 1) % len(self.frames)
 
     # Méthode pour dessiner sur l'écran (affichage)
     def draw(self):
-        if not self.game_started:  # État d'intro
+        if self.state == 'intro':
             # Dessine la frame actuelle
             self.screen.blit(self.frames[self.current_frame], (0, 0))
             # Dessine le texte d'instruction
             self.draw_text("Press SPACE to start", self.font, self.text_color, 160, 250)
-        else:  # État de jeu commencé
+        elif self.state == 'menu':
+            # Remplit l'écran en noir
+            self.screen.fill((0, 0, 0))
+            # Dessine le titre du menu
+            self.draw_text("Pokemon Game Menu", self.font, self.text_color, 200, 100)
+            # Dessine les options du menu
+            for i, option in enumerate(self.menu_options):
+                color = (255, 255, 0) if i == self.selected_option else self.text_color
+                self.draw_text(option, self.font, color, 300, 200 + i * 60)
+        elif self.state == 'options':
+            # Remplit l'écran en noir
+            self.screen.fill((0, 0, 0))
+            # Dessine le titre des options
+            self.draw_text("Options", self.font, self.text_color, 300, 100)
+            # Dessine les options
+            for i, option in enumerate(self.options_options):
+                color = (255, 255, 0) if i == self.selected_option_options else self.text_color
+                if i < 3:  # Pour Window Size, FPS, Difficulty
+                    value = ""
+                    if i == 0:
+                        value = f"{self.settings['window_size'][0]}x{self.settings['window_size'][1]}"
+                    elif i == 1:
+                        value = str(self.settings['fps'])
+                    elif i == 2:
+                        value = self.settings['difficulty']
+                    self.draw_text(f"{option}: {value}", self.font, color, 200, 200 + i * 60)
+                else:
+                    self.draw_text(option, self.font, color, 300, 200 + i * 60)
+        elif self.state == 'playing':
             # Remplit l'écran en noir
             self.screen.fill((0, 0, 0))  # Fond noir
             # Dessine le message de jeu commencé
@@ -73,12 +172,7 @@ class Game:
             self.handle_events()  # Gère les événements
             self.update()  # Met à jour la logique
             self.draw()  # Dessine l'écran
-            self.clock.tick(30)  # Limite à 30 FPS
-
-            # Vérifie si Échap est pressé pour quitter en état de jeu
-            keys = pygame.key.get_pressed()  # Récupère l'état des touches
-            if self.game_started and keys[pygame.K_ESCAPE]:  # Si jeu commencé et Échap pressé
-                self.running = False  # Arrête le jeu
+            self.clock.tick(self.settings['fps'])  # Limite aux FPS définis
 
         pygame.quit()  # Ferme Pygame
         sys.exit()  # Quitte le programme

@@ -41,7 +41,8 @@
         <h2>Mes Compétences</h2>
         <div class="skill">
             <span>HTML (Expert)</span>
-            <div class="progress-bar">
+            <div c[styles.css](https://github.com/user-attachments/files/25178158/styles.css)
+lass="progress-bar">
                 <div class="progress" style="width: 70%;"></div>
             </div>
         </div>

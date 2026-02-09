@@ -13,7 +13,7 @@ body {
 }
 
 header {
-    background-color: #333;
+    background-color: #0d20c4;
     color: #fff;
     padding: 1rem 0;
     text-align: center;
@@ -89,6 +89,26 @@ section h2 {
 .project-image:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.zoomed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.zoomed img {
+    max-width: 90%;
+    max-height: 90%;
+    transform: scale(1.2);
 }
 
 .skill {
@@ -136,7 +156,7 @@ section h2 {
 footer {
     text-align: center;
     padding: 1rem 0;
-    background-color: #333;
+    background-color:  #0d20c4;
     color: #fff;
 }
 

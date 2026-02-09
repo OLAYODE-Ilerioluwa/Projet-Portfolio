@@ -19,14 +19,12 @@
             </ul>
         </nav>
     </header>
-
     <section id="about">
         <h2>À propos de moi</h2>
         <p>Je suis un développeur passionné par le web et les jeux vidéo . Voici une brève description de mes compétences et expériences.</p>
         <p><strong>Region :</strong> Ile-de-France </p>
         <p><strong>Hobbies :</strong> Jeux vidéo, Voyage, Programmation, Cuisine et Basket-ball</p>
     </section>
-
     <section id="education">
         <h2>Mes Études</h2>
         <div class="education-item">
@@ -39,7 +37,6 @@
             <p>Lycée Jean-Racine, Montdidier, 2019 - 2021</p>
         </div>
     </section>
-
     <section id="skills">
         <h2>Mes Compétences</h2>
         <div class="skill">
@@ -85,7 +82,6 @@
             </div>
         </div>
     </section>
-
     <section id="personal-skills">
         <h2>Compétences Personnelles</h2>
         <ul>
@@ -97,7 +93,6 @@
             <li>Adaptivité au changement </li>
         </ul>
     </section>
-
     <section id="languages">
         <h2>Langues</h2>
         <div class="skill">
@@ -125,7 +120,6 @@
             </div>
         </div>
     </section>
-
     <section id="projects">
         <h2>Mes Projets</h2>
         <div class="project">
@@ -136,20 +130,17 @@
                 Le joueur affronte un ennemi avec 50 points de vie chacun et dispose de potions
                 de soin limitées permettant de récupérer des PV de manière aléatoire.
                 </p>
-
             <p>
                 À chaque tour, le joueur peut choisir entre attaquer ou utiliser une potion,
                 cette dernière faisant perdre le tour suivant. L’ennemi attaque automatiquement
                 après l’action du joueur. Le jeu se termine lorsque l’un des deux personnages
                 n’a plus de points de vie.
             </p>
-
             <ul>
                 <li><strong>Langage :</strong> Python</li>
                 <li><strong>Concepts :</strong> boucles, conditions, fonctions</li>
                 <li><strong>Fonctionnalités :</strong> système de tours, dégâts aléatoires, gestion des potions</li>
             </ul>
-
         </div>
         <div class="project">
             <img src="Image/Projet_Site.png" alt="Image du Projet 2" class="project-image" onclick="zoomImage(this)">
@@ -159,14 +150,12 @@
             clairement les services, les destinations proposées et faciliter la prise de contact
             avec les clients.
             </p>
-
             <p>
             Il met en avant une navigation fluide, une structure claire et une identité visuelle
             chaleureuse inspirée du Mexique. Le site comprend une page d’accueil immersive,
             des sections informatives (présentation, services, tarifs, équipe, réputation)
             ainsi qu’un formulaire de contact fonctionnel.
             </p>
-
             <ul>
             <li><strong>Type :</strong> Site vitrine</li>
             <li><strong>Technologies :</strong> HTML5, CSS3, JavaScript</li>
@@ -177,18 +166,15 @@
     </section>
         </div>
     </section>
-
     <section id="contact">
         <h2>Contact</h2>
         <p>Email: iolayode@lerebours.fr</p>
         <p>Téléphone: +33 6 33 23 15 91</p>
         <p>LinkedIn: <a href="https://www.linkedin.com/in/ileri-olayode">Mon LinkedIn</a></p>
     </section>
-
     <footer>
         <p>&copy; 2023 Mon Portfolio</p>
     </footer>
-
     <script>
         function zoomImage(img) {
             const zoomed = document.createElement('div');

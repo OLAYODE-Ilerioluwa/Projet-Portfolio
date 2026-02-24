@@ -5,7 +5,7 @@ Projet-Portfolio
 
 🛠️ Compétences
 
-Langages : Python, JavaScript, Java, SQL, etc.
+Langages : Python, HTML, CSS, WORDPRESS, Java, SQL, etc.
 
 Frameworks / Outils : Git, Docker…
 

@@ -406,6 +406,20 @@
         }
         .skill-fill.animated { transform: scaleX(1); }
 
+        .skill-category-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent3);
+            margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 0.7rem;
+        }
+        .skill-category-label::after {
+            content: '';
+            flex: 1; height: 1px;
+            background: rgba(0,229,195,0.15);
+        }
+
         .soft-skills h3, .lang-section h3 {
             font-family: 'Syne', sans-serif;
             font-size: 1rem;
@@ -734,7 +748,7 @@
                 <div class="stat-label">Projets</div>
             </div>
             <div class="stat">
-                <div class="stat-num">7<span>+</span></div>
+                <div class="stat-num">10<span>+</span></div>
                 <div class="stat-label">Technologies</div>
             </div>
             <div class="stat">
@@ -827,33 +841,61 @@
         </div>
         <div class="skills-wrapper">
             <div>
+                <!-- BACK-END -->
+                <div class="skill-category-label reveal">Back-End</div>
                 <div class="skill-item reveal reveal-d1">
                     <div class="skill-header"><span class="skill-name">Python</span><span class="skill-pct">90%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" style="--w:0.9"></div></div>
+                    <div class="skill-bar"><div class="skill-fill"></div></div>
                 </div>
                 <div class="skill-item reveal reveal-d1">
-                    <div class="skill-header"><span class="skill-name">HTML5</span><span class="skill-pct">70%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" style="--w:0.7"></div></div>
+                    <div class="skill-header"><span class="skill-name">Flask</span><span class="skill-pct">55%</span></div>
+                    <div class="skill-bar"><div class="skill-fill"></div></div>
                 </div>
                 <div class="skill-item reveal reveal-d2">
-                    <div class="skill-header"><span class="skill-name">CSS3</span><span class="skill-pct">60%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" style="--w:0.6"></div></div>
+                    <div class="skill-header"><span class="skill-name">PHP</span><span class="skill-pct">25%</span></div>
+                    <div class="skill-bar"><div class="skill-fill"></div></div>
                 </div>
                 <div class="skill-item reveal reveal-d2">
-                    <div class="skill-header"><span class="skill-name">SQL</span><span class="skill-pct">30%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" style="--w:0.3"></div></div>
-                </div>
-                <div class="skill-item reveal reveal-d3">
-                    <div class="skill-header"><span class="skill-name">JavaScript</span><span class="skill-pct">20%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" style="--w:0.2"></div></div>
-                </div>
-                <div class="skill-item reveal reveal-d3">
                     <div class="skill-header"><span class="skill-name">Java</span><span class="skill-pct">20%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" style="--w:0.2"></div></div>
+                    <div class="skill-bar"><div class="skill-fill"></div></div>
                 </div>
-                <div class="skill-item reveal reveal-d4">
-                    <div class="skill-header"><span class="skill-name">Unity</span><span class="skill-pct">10%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" style="--w:0.1"></div></div>
+
+                <!-- FRONT-END -->
+                <div class="skill-category-label reveal" style="margin-top:2rem">Front-End</div>
+                <div class="skill-item reveal reveal-d1">
+                    <div class="skill-header"><span class="skill-name">HTML5</span><span class="skill-pct">70%</span></div>
+                    <div class="skill-bar"><div class="skill-fill"></div></div>
+                </div>
+                <div class="skill-item reveal reveal-d1">
+                    <div class="skill-header"><span class="skill-name">CSS3</span><span class="skill-pct">60%</span></div>
+                    <div class="skill-bar"><div class="skill-fill"></div></div>
+                </div>
+                <div class="skill-item reveal reveal-d2">
+                    <div class="skill-header"><span class="skill-name">JavaScript</span><span class="skill-pct">20%</span></div>
+                    <div class="skill-bar"><div class="skill-fill"></div></div>
+                </div>
+                <div class="skill-item reveal reveal-d2">
+                    <div class="skill-header"><span class="skill-name">Bootstrap</span><span class="skill-pct">40%</span></div>
+                    <div class="skill-bar"><div class="skill-fill"></div></div>
+                </div>
+
+                <!-- BDD + OUTILS -->
+                <div class="skill-category-label reveal" style="margin-top:2rem">Base de données & Outils</div>
+                <div class="skill-item reveal reveal-d1">
+                    <div class="skill-header"><span class="skill-name">SQL / MySQL</span><span class="skill-pct">35%</span></div>
+                    <div class="skill-bar"><div class="skill-fill"></div></div>
+                </div>
+                <div class="skill-item reveal reveal-d2">
+                    <div class="skill-header"><span class="skill-name">SQLite</span><span class="skill-pct">40%</span></div>
+                    <div class="skill-bar"><div class="skill-fill"></div></div>
+                </div>
+                <div class="skill-item reveal reveal-d2">
+                    <div class="skill-header"><span class="skill-name">GitHub</span><span class="skill-pct">50%</span></div>
+                    <div class="skill-bar"><div class="skill-fill"></div></div>
+                </div>
+                <div class="skill-item reveal reveal-d3">
+                    <div class="skill-header"><span class="skill-name">Trello</span><span class="skill-pct">60%</span></div>
+                    <div class="skill-bar"><div class="skill-fill"></div></div>
                 </div>
 
                 <div style="margin-top:3rem">
@@ -1008,106 +1050,84 @@
     </footer>
 
     <script>
-        // Custom cursor
+        // ── Custom cursor ──────────────────────────────────────────
         const cursor = document.getElementById('cursor');
-        const ring = document.getElementById('cursorRing');
+        const ring   = document.getElementById('cursorRing');
         let mx = 0, my = 0, rx = 0, ry = 0;
 
         document.addEventListener('mousemove', e => {
             mx = e.clientX; my = e.clientY;
-            cursor.style.left = mx - 6 + 'px';
-            cursor.style.top = my - 6 + 'px';
+            cursor.style.left = (mx - 6) + 'px';
+            cursor.style.top  = (my - 6) + 'px';
         });
 
-        function animRing() {
+        (function animRing() {
             rx += (mx - rx) * 0.12;
             ry += (my - ry) * 0.12;
-            ring.style.left = rx - 18 + 'px';
-            ring.style.top = ry - 18 + 'px';
+            ring.style.left = (rx - 18) + 'px';
+            ring.style.top  = (ry - 18) + 'px';
             requestAnimationFrame(animRing);
-        }
-        animRing();
+        })();
 
         document.querySelectorAll('a, button, .hobby-card, .project-card, .contact-link').forEach(el => {
             el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2)'; ring.style.transform = 'scale(1.5)'; ring.style.opacity = '0.8'; });
-            el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; ring.style.opacity = '0.5'; });
+            el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)';   ring.style.opacity = '0.5'; });
         });
 
-        // Scroll reveal
-        const observer = new IntersectionObserver(entries => {
+        // ── Skill bars: read % from .skill-pct text ────────────────
+        document.querySelectorAll('.skill-item').forEach(item => {
+            const fill = item.querySelector('.skill-fill');
+            const pct  = item.querySelector('.skill-pct');
+            if (fill && pct) {
+                fill.dataset.val = parseInt(pct.textContent) / 100;
+            }
+        });
+
+        // ── Scroll reveal + skill bar animation ───────────────────
+        const revealObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // Animate skill bars
-                    entry.target.querySelectorAll('.skill-fill').forEach(bar => {
-                        const w = parseFloat(bar.style.getPropertyValue('--w') || bar.parentElement?.previousElementSibling?.querySelector('.skill-pct')?.textContent) ;
-                        bar.style.transform = `scaleX(${w || 1})`;
-                        bar.classList.add('animated');
-                    });
-                }
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                // animate any skill bars inside this element
+                entry.target.querySelectorAll('.skill-fill[data-val]').forEach(fill => {
+                    fill.style.transform = 'scaleX(' + fill.dataset.val + ')';
+                });
+                revealObserver.unobserve(entry.target);
             });
         }, { threshold: 0.15 });
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-        // Skill bars: also observe bars directly
-        const barObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.querySelectorAll('.skill-fill').forEach(fill => fill.classList.add('animated'));
-                }
-            });
-        }, { threshold: 0.2 });
-        document.querySelectorAll('#skills').forEach(el => barObserver.observe(el));
-
-        // Fix skill bar widths from inline style
-        document.querySelectorAll('.skill-fill').forEach(fill => {
-            const w = fill.style.getPropertyValue('--w');
-            if (w) {
-                fill.addEventListener('transitionend', () => {}, { once: true });
-            }
-        });
-
-        // Override: use CSS custom property approach — set width on animation
-        document.querySelectorAll('.skill-item').forEach(item => {
-            const fill = item.querySelector('.skill-fill');
-            const pct = item.querySelector('.skill-pct');
-            if (fill && pct) {
-                const val = parseInt(pct.textContent) / 100;
-                fill.dataset.val = val;
-            }
-        });
-
-        const skillObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.querySelectorAll('.skill-fill').forEach(fill => {
-                        const val = fill.dataset.val || 1;
-                        fill.style.transform = `scaleX(${val})`;
+        // Also trigger bars when the whole #skills section enters view
+        const skillsSection = document.getElementById('skills');
+        if (skillsSection) {
+            new IntersectionObserver(entries => {
+                if (entries[0].isIntersecting) {
+                    skillsSection.querySelectorAll('.skill-fill[data-val]').forEach(fill => {
+                        fill.style.transform = 'scaleX(' + fill.dataset.val + ')';
                     });
                 }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('#skills').forEach(el => skillObserver.observe(el));
+            }, { threshold: 0.05 }).observe(skillsSection);
+        }
 
-        // Zoom image
+        // ── Zoom image ─────────────────────────────────────────────
         function zoomImage(img) {
             const overlay = document.createElement('div');
             overlay.className = 'zoom-overlay';
-            overlay.innerHTML = `<img src="${img.src}" alt="${img.alt}">`;
+            overlay.innerHTML = '<img src="' + img.src + '" alt="' + img.alt + '">';
             overlay.onclick = () => document.body.removeChild(overlay);
             document.body.appendChild(overlay);
         }
 
-        // Hero animation on load
+        // ── Hero entrance animation ────────────────────────────────
         document.querySelectorAll('.hero-content > *').forEach((el, i) => {
-            el.style.opacity = '0';
+            el.style.opacity   = '0';
             el.style.transform = 'translateY(20px)';
-            el.style.transition = `opacity 0.7s ease ${i*0.15}s, transform 0.7s ease ${i*0.15}s`;
-            requestAnimationFrame(() => {
-                el.style.opacity = '1';
+            el.style.transition = 'opacity 0.7s ease ' + (i * 0.15) + 's, transform 0.7s ease ' + (i * 0.15) + 's';
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+                el.style.opacity   = '1';
                 el.style.transform = 'translateY(0)';
-            });
+            }));
         });
     </script>
 </body>

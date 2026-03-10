@@ -839,7 +839,7 @@
             <div class="project-card reveal reveal-d1" onclick="openProject('hero')">
                 <div class="project-img-wrap">
                     <span class="project-type">Python · Terminal</span>
-                    <img src="Image/Projet_jeu.png" alt="Logo du site">
+                    <div class="project-placeholder">⚔️</div>
                 </div>
                 <div class="project-body">
                     <h3 class="project-title">Jeu Héros</h3>
@@ -860,7 +860,7 @@
             <div class="project-card reveal reveal-d2" onclick="openProject('mexigo')">
                 <div class="project-img-wrap">
                     <span class="project-type">HTML · CSS · JS</span>
-                    <img src="Image/Projet_Site.png" alt="Logo du site">
+                    <div class="project-placeholder">🌮</div>
                 </div>
                 <div class="project-body">
                     <h3 class="project-title">MexiGo</h3>
@@ -893,11 +893,11 @@
                 <p class="contact-text">Je suis ouvert aux opportunités de stage, d'alternance ou de collaboration sur des projets web. N'hésitez pas à me contacter !</p>
             </div>
             <div class="contact-links">
-                <a href="mailto:iolayode@lerebours.fr" class="contact-link reveal reveal-d1">
+                <a href="/cdn-cgi/l/email-protection#aec7c1c2cfd7c1cacbeec2cbdccbccc1dbdcdd80c8dc" class="contact-link reveal reveal-d1">
                     <div class="contact-link-icon">✉️</div>
                     <div class="contact-link-info">
                         <div class="contact-link-label">Email</div>
-                        <div class="contact-link-val">iolayode@lerebours.fr</div>
+                        <div class="contact-link-val"><span class="__cf_email__" data-cfemail="30595f5c51495f5455705c554255525f4542431e5642">[email&#160;protected]</span></div>
                     </div>
                     <span class="contact-arrow">→</span>
                 </a>
@@ -934,7 +934,8 @@
         <div class="modal">
             <button class="modal-close" onclick="closeModal('hero')" aria-label="Fermer">✕</button>
             <div class="modal-hero">
-                <img src="Image/Projet_jeu.png" alt="Jeu Héros">
+                <img src="Image/Projet_jeu.png" alt="Jeu Héros" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="modal-hero-placeholder" style="display:none">⚔️</div>
                 <div class="modal-hero-overlay"></div>
                 <span class="modal-badge">Python · Terminal · 2025</span>
             </div>
@@ -1011,7 +1012,8 @@
         <div class="modal">
             <button class="modal-close" onclick="closeModal('mexigo')" aria-label="Fermer">✕</button>
             <div class="modal-hero">
-                <img src="Image/Projet_Site.png" alt="MexiGo">
+                <img src="Image/Projet_Site.png" alt="MexiGo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="modal-hero-placeholder" style="display:none">🌮</div>
                 <div class="modal-hero-overlay"></div>
                 <span class="modal-badge">HTML · CSS · JS · 2025</span>
             </div>
@@ -1023,30 +1025,39 @@
                     <span class="modal-tag">JavaScript</span>
                     <span class="modal-tag">Responsive</span>
                     <span class="modal-tag">Site vitrine</span>
+                    <span class="modal-tag">Font Awesome</span>
                 </div>
 
                 <p class="modal-section-title">Description</p>
                 <p class="modal-desc">
-                    MexiGo est un site vitrine responsive conçu pour une agence de voyage fictive spécialisée dans les séjours au Mexique. Le projet met en avant une navigation fluide entre les sections, une identité visuelle chaleureuse et colorée, ainsi qu'un formulaire de contact fonctionnel côté front-end. L'objectif était de maîtriser la mise en page responsive sans framework CSS.
+                    MexiGo est un site vitrine multi-pages pour une agence de voyage fictive spécialisée dans les séjours au Mexique. Il comporte plusieurs sections : présentation de l'agence, équipe de conseillers, services proposés, tarifs, témoignages clients et formulaire de contact complet. L'objectif était de construire un site professionnel et cohérent en HTML / CSS pur, sans framework, avec une navigation fluide entre les pages.
                 </p>
 
-                <p class="modal-section-title">Fonctionnalités</p>
+                <p class="modal-section-title">Pages & Sections</p>
                 <div class="modal-features">
                     <div class="feature-item">
-                        <span class="feature-icon">📱</span>
-                        <div class="feature-text"><strong>Design responsive</strong><br>Adapté mobiles, tablettes et desktops via Flexbox et media queries.</div>
+                        <span class="feature-icon">🏠</span>
+                        <div class="feature-text"><strong>Accueil</strong><br>Landing page avec hero, présentation, équipe, services, tarifs et témoignages.</div>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon">🗺️</span>
-                        <div class="feature-text"><strong>Navigation fluide</strong><br>Ancres et défilement doux vers les sections de la page.</div>
+                        <span class="feature-icon">🏄</span>
+                        <div class="feature-text"><strong>Activités</strong><br>Page dédiée aux excursions et activités disponibles au Mexique.</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🍽️</span>
+                        <div class="feature-text"><strong>Gastronomie</strong><br>Page présentant la cuisine mexicaine et les spécialités locales.</div>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">✉️</span>
-                        <div class="feature-text"><strong>Formulaire de contact</strong><br>Validation côté client avec retour visuel à l'utilisateur.</div>
+                        <div class="feature-text"><strong>Formulaire de contact</strong><br>Champs nom, email, destination, message — avec validation HTML5 native.</div>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon">🎨</span>
-                        <div class="feature-text"><strong>Identité visuelle</strong><br>Palette colorée, typographie cohérente, illustrations intégrées.</div>
+                        <span class="feature-icon">👥</span>
+                        <div class="feature-text"><strong>Équipe conseillers</strong><br>Présentation des 3 conseillers avec photo, spécialité et zone géographique.</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">💶</span>
+                        <div class="feature-text"><strong>Grille de tarifs</strong><br>3 packs (Conseil 59€, Essentiel 149€, Sur-Mesure) avec descriptions.</div>
                     </div>
                 </div>
 
@@ -1057,36 +1068,29 @@
                     <span class="stack-chip">Flexbox</span>
                     <span class="stack-chip">Media Queries</span>
                     <span class="stack-chip">JavaScript</span>
+                    <span class="stack-chip">Font Awesome 6</span>
                 </div>
 
-                <p class="modal-section-title">Extrait de code</p>
+                <p class="modal-section-title">Extrait de code — Navigation</p>
                 <div class="modal-code">
-<span class="code-comment">/* Navigation responsive */</span><br>
-<span class="code-fn">@media</span> (max-width: <span class="code-num">768px</span>) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">.nav-links</span> {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display: none;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flex-direction: column;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">.nav-links.open</span> { display: flex; }<br>
-}<br>
-<br>
-<span class="code-comment">// Validation du formulaire</span><br>
-<span class="code-keyword">const</span> form = document.<span class="code-fn">querySelector</span>(<span class="code-str">'#contact-form'</span>);<br>
-form.<span class="code-fn">addEventListener</span>(<span class="code-str">'submit'</span>, (e) => {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;e.<span class="code-fn">preventDefault</span>();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Vérification des champs</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-fn">showSuccess</span>();<br>
-});
+&lt;<span class="code-keyword">header</span> class=<span class="code-str">"entete"</span>&gt;<br>
+&nbsp;&nbsp;&lt;<span class="code-keyword">img</span> src=<span class="code-str">"image/Logo.png"</span> alt=<span class="code-str">"Logo du site"</span>&gt;<br>
+&nbsp;&nbsp;&lt;<span class="code-keyword">nav</span> class=<span class="code-str">"navigation"</span>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="code-keyword">li</span>&gt;&lt;<span class="code-keyword">a</span> href=<span class="code-str">"Accueil.html"</span>&gt;Accueil&lt;/<span class="code-keyword">a</span>&gt;&lt;/<span class="code-keyword">li</span>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="code-keyword">li</span>&gt;&lt;<span class="code-keyword">a</span> href=<span class="code-str">"activites.html"</span>&gt;Activités&lt;/<span class="code-keyword">a</span>&gt;&lt;/<span class="code-keyword">li</span>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="code-keyword">li</span>&gt;&lt;<span class="code-keyword">a</span> href=<span class="code-str">"Gastronomie.html"</span>&gt;Gastronomie&lt;/<span class="code-keyword">a</span>&gt;&lt;/<span class="code-keyword">li</span>&gt;<br>
+&nbsp;&nbsp;&lt;/<span class="code-keyword">nav</span>&gt;<br>
+&lt;/<span class="code-keyword">header</span>&gt;
                 </div>
 
                 <p style="font-size:.8rem;color:var(--muted);line-height:1.8;">
-                    Ce projet m'a permis de pratiquer la conception d'un site web complet de A à Z, depuis la maquette jusqu'au code final. J'ai notamment approfondis mes connaissances en CSS responsive et en manipulation du DOM avec JavaScript.
+                    Ce projet m'a permis de construire un site web complet de plusieurs pages, avec une navigation cohérente, une mise en page en grille CSS, et l'intégration d'une librairie d'icônes (Font Awesome). J'ai travaillé sur la structuration sémantique du HTML et l'organisation du CSS en plusieurs fichiers.
                 </p>
             </div>
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // ── Mobile nav ─────────────────────────
         function toggleNav() {
             const links = document.getElementById('navLinks');
@@ -1159,7 +1163,7 @@ form.<span class="code-fn">addEventListener</span>(<span class="code-str">'submi
         document.querySelectorAll('.hero-content > *').forEach((el, i) => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(22px)';
-            el.style.transition = `opacity .7s ease ${i * .14}s, transform .7s ease ${i * .14}s`;
+            el.style.transition = `opacity .7s ease ${i * .14}s, transform.7s ease ${i * .14}s`;
             requestAnimationFrame(() => requestAnimationFrame(() => {
                 el.style.opacity = '1';
                 el.style.transform = 'translateY(0)';
@@ -1168,7 +1172,5 @@ form.<span class="code-fn">addEventListener</span>(<span class="code-str">'submi
     </script>
 </body>
 </html>
-
-
 
 

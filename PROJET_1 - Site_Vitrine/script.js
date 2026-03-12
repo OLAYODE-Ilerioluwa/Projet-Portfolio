@@ -1,82 +1,57 @@
-// Animation pour le bouton Scroll (rebond)
-const scrollBtn = document.querySelector('.defiler');
-if (scrollBtn) {
-    scrollBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Déterminer la cible en fonction de la page actuelle
-        let targetSelector = '#contact'; // Par défaut pour Accueil.html
-        if (window.location.pathname.includes('activites.html')) {
-            targetSelector = '#photos';
-        } else if (window.location.pathname.includes('Gastronomie.html')) {
-            targetSelector = '#plats';
-        }
-        const target = document.querySelector(targetSelector);
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
+// ============================================================
+//  MexiGo — script.js
+//  Seule responsabilité : validation du formulaire de contact
+//  (header + scroll reveal sont gérés inline dans chaque page)
+// ============================================================
 
-    // Animation de rebond (optionnel, pour rendre le bouton plus dynamique)
-    setInterval(() => {
-        scrollBtn.style.transform = 'translateY(-5px)';
-        setTimeout(() => {
-            scrollBtn.style.transform = 'translateY(0)';
-        }, 500);
-    }, 2000); // Répète toutes les 2 secondes
-}
-
-// Hide/show header on scroll
-let lastScrollTop = 0;
-const header = document.querySelector('.entete');
-window.addEventListener('scroll', function() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (scrollTop > lastScrollTop) {
-        // Scroll down
-        header.classList.add('hidden');
-    } else {
-        // Scroll up
-        header.classList.remove('hidden');
-    }
-    lastScrollTop = scrollTop;
-});
-
-// Validation du formulaire de contact
 const form = document.querySelector('.formulaire-contact');
 if (form) {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Empêche l'envoi par défaut
 
-        const nom = document.getElementById('nom').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
+  // Crée un message d'erreur sous un champ
+  function setError(input, msg) {
+    clearError(input);
+    input.style.borderColor = 'var(--rouge)';
+    const err = document.createElement('span');
+    err.className = 'champ-erreur';
+    err.style.cssText = 'color:#e63946;font-size:12px;font-family:"Barlow Condensed",sans-serif;letter-spacing:1px;margin-top:4px;display:block';
+    err.textContent = msg;
+    input.parentElement.appendChild(err);
+  }
 
-        let isValid = true;
-        let errors = [];
+  function clearError(input) {
+    input.style.borderColor = '';
+    const prev = input.parentElement.querySelector('.champ-erreur');
+    if (prev) prev.remove();
+  }
 
-        // Vérifier le nom
-        if (!nom) {
-            errors.push('Le nom est obligatoire.');
-            isValid = false;
-        }
+  // Validation en temps réel
+  form.querySelectorAll('input, textarea').forEach(field => {
+    field.addEventListener('input', () => clearError(field));
+  });
 
-        // Vérifier l'email (format basique)
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email || !emailRegex.test(email)) {
-            errors.push('Un email valide est obligatoire.');
-            isValid = false;
-        }
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nom     = document.getElementById('nom');
+    const email   = document.getElementById('email');
+    const message = document.getElementById('message');
+    let valid = true;
 
-        // Vérifier le message
-        if (!message) {
-            errors.push('Le message est obligatoire.');
-            isValid = false;
-        }
+    if (!nom.value.trim()) {
+      setError(nom, 'Le nom est obligatoire.'); valid = false;
+    }
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+    if (!emailOk) {
+      setError(email, 'Entrez un email valide.'); valid = false;
+    }
+    if (!message.value.trim()) {
+      setError(message, 'Le message est obligatoire.'); valid = false;
+    }
 
-        if (isValid) {
-            alert('Formulaire envoyé avec succès ! (Simulation - en vrai, envoyez à un serveur)');
-            form.reset(); // Réinitialise le formulaire
-        } else {
-            alert('Erreurs :\n' + errors.join('\n'));
-        }
-    });
+    if (valid) {
+      const btn = form.querySelector('button[type="submit"] span');
+      if (btn) btn.textContent = 'Demande envoyée ✓';
+      form.reset();
+      setTimeout(() => { if (btn) btn.textContent = 'Envoyer ma demande'; }, 3000);
+    }
+  });
 }

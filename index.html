@@ -1,1176 +1,421 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ileri Olayode — Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg:      #f0f7ff;
-            --surface: #e3f0fd;
-            --card:    #ffffff;
-            --sky:     #38bdf8;
-            --sky-deep:#0284c7;
-            --sky-dark:#0369a1;
-            --sky-soft:#bae6fd;
-            --teal:    #06b6d4;
-            --coral:   #f97316;
-            --text:    #0f172a;
-            --muted:   #64748b;
-            --border:  rgba(56,189,248,0.25);
-            --shadow:  0 4px 24px rgba(2,132,199,0.10);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* ── NOISE + GRAIN ── */
-        body::before {
-            content:'';
-            position:fixed;inset:0;z-index:0;pointer-events:none;
-            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-            opacity:.5;
-        }
-
-        /* ── NAV ── */
-        nav {
-            position:fixed;top:0;left:0;right:0;z-index:200;
-            padding:1.1rem 5%;
-            display:flex;align-items:center;justify-content:space-between;
-            background:rgba(240,247,255,0.85);
-            backdrop-filter:blur(18px);
-            border-bottom:1px solid var(--border);
-        }
-        .nav-logo {
-            font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;
-            letter-spacing:-.03em;color:var(--text);text-decoration:none;
-        }
-        .nav-logo span { color:var(--sky-deep); }
-
-        .nav-links { display:flex;gap:2rem;list-style:none; }
-        .nav-links a {
-            font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
-            color:var(--muted);text-decoration:none;font-weight:500;
-            transition:color .2s;position:relative;
-        }
-        .nav-links a::after {
-            content:'';position:absolute;bottom:-4px;left:0;
-            width:0;height:2px;background:var(--sky);border-radius:2px;
-            transition:width .3s ease;
-        }
-        .nav-links a:hover { color:var(--sky-deep); }
-        .nav-links a:hover::after { width:100%; }
-
-        .nav-burger {
-            display:none;flex-direction:column;gap:5px;cursor:pointer;
-            background:none;border:none;padding:4px;
-        }
-        .nav-burger span {
-            display:block;width:22px;height:2px;
-            background:var(--sky-deep);border-radius:2px;
-            transition:all .3s;
-        }
-
-        /* ── HERO ── */
-        #hero {
-            min-height:100vh;
-            display:flex;align-items:center;
-            padding:9rem 5% 5rem;
-            position:relative;overflow:hidden;
-        }
-
-        .hero-bg-blobs {
-            position:absolute;inset:0;z-index:0;pointer-events:none;
-        }
-        .blob {
-            position:absolute;border-radius:50%;filter:blur(80px);
-        }
-        .blob-1 { width:600px;height:600px;background:rgba(56,189,248,.18);top:-100px;right:-100px; }
-        .blob-2 { width:400px;height:400px;background:rgba(6,182,212,.12);bottom:0;left:-50px; }
-        .blob-3 { width:300px;height:300px;background:rgba(249,115,22,.07);top:40%;right:20%; }
-
-        /* Grid lines */
-        .hero-grid {
-            position:absolute;inset:0;z-index:0;
-            background-image:
-                linear-gradient(rgba(56,189,248,.07) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(56,189,248,.07) 1px, transparent 1px);
-            background-size:80px 80px;
-        }
-
-        .hero-content { position:relative;z-index:1;max-width:820px; }
-
-        .hero-badge {
-            display:inline-flex;align-items:center;gap:.5rem;
-            font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
-            color:var(--sky-deep);
-            padding:.4rem 1.1rem;border-radius:100px;
-            background:rgba(56,189,248,.12);
-            border:1px solid rgba(56,189,248,.3);
-            margin-bottom:2rem;font-weight:600;
-        }
-        .hero-badge::before {
-            content:'';width:7px;height:7px;
-            background:var(--sky);border-radius:50%;
-            animation:blink 2s infinite;
-        }
-        @keyframes blink {
-            0%,100%{opacity:1;transform:scale(1)}
-            50%{opacity:.3;transform:scale(.7)}
-        }
-
-        .hero-name {
-            font-family:'Syne',sans-serif;font-weight:800;
-            font-size:clamp(3.2rem,8vw,6.5rem);
-            line-height:.95;letter-spacing:-.05em;
-            margin-bottom:1.6rem;color:var(--text);
-        }
-        .hero-name .hollow {
-            -webkit-text-stroke:2px var(--sky-deep);color:transparent;
-        }
-        .hero-name .dot { color:var(--sky); }
-
-        .hero-desc {
-            font-size:1rem;color:var(--muted);line-height:1.9;
-            max-width:480px;margin-bottom:2.5rem;font-weight:400;
-        }
-        .hero-desc strong { color:var(--sky-dark);font-weight:600; }
-
-        .hero-cta { display:flex;gap:1rem;flex-wrap:wrap; }
-
-        .btn {
-            display:inline-flex;align-items:center;gap:.6rem;
-            padding:.85rem 2rem;font-family:'Plus Jakarta Sans',sans-serif;
-            font-size:.82rem;font-weight:600;letter-spacing:.04em;
-            text-decoration:none;border-radius:8px;
-            transition:all .25s ease;cursor:pointer;border:none;
-        }
-        .btn-primary {
-            background:linear-gradient(135deg,var(--sky),var(--sky-deep));
-            color:#fff;box-shadow:0 4px 20px rgba(2,132,199,.3);
-        }
-        .btn-primary:hover {
-            transform:translateY(-3px);
-            box-shadow:0 8px 32px rgba(2,132,199,.45);
-        }
-        .btn-outline {
-            border:2px solid var(--border);color:var(--sky-dark);
-            background:var(--card);
-        }
-        .btn-outline:hover {
-            border-color:var(--sky);background:rgba(56,189,248,.08);
-            transform:translateY(-3px);
-        }
-
-        .hero-stats {
-            display:flex;gap:3rem;margin-top:3rem;flex-wrap:wrap;
-        }
-        .stat-num {
-            font-family:'Syne',sans-serif;font-weight:800;
-            font-size:2.6rem;line-height:1;color:var(--sky-dark);
-        }
-        .stat-num sub { font-size:1.2rem;color:var(--sky); }
-        .stat-label {
-            font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;
-            color:var(--muted);margin-top:.2rem;
-        }
-
-        /* ── SECTIONS ── */
-        section { padding:6rem 5%;position:relative; }
-        section:nth-child(even) { background:var(--surface); }
-
-        .section-header {
-            display:flex;align-items:center;gap:1.2rem;
-            margin-bottom:3.5rem;
-        }
-        .section-num {
-            font-family:'Syne',sans-serif;font-size:.7rem;
-            font-weight:700;color:var(--sky);letter-spacing:.12em;
-        }
-        .section-title {
-            font-family:'Syne',sans-serif;font-weight:800;
-            font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.04em;
-        }
-        .section-line {
-            flex:1;height:1px;
-            background:linear-gradient(to right,var(--border),transparent);
-        }
-
-        /* ── ABOUT ── */
-        .about-grid {
-            display:grid;grid-template-columns:1.3fr 1fr;
-            gap:4rem;align-items:start;
-        }
-        .about-text p {
-            font-size:1rem;line-height:1.9;color:var(--muted);
-            margin-bottom:1.3rem;
-        }
-        .about-text p strong { color:var(--sky-dark);font-weight:600; }
-
-        .info-cards { display:flex;flex-direction:column;gap:.7rem;margin-top:2rem; }
-        .info-card {
-            display:flex;align-items:center;gap:1rem;
-            padding:.9rem 1.3rem;background:var(--card);
-            border-radius:10px;border:1px solid var(--border);
-            box-shadow:var(--shadow);
-        }
-        .info-icon {
-            width:34px;height:34px;border-radius:8px;
-            background:linear-gradient(135deg,var(--sky-soft),rgba(56,189,248,.3));
-            display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;
-        }
-        .info-label { font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted); }
-        .info-val { font-size:.88rem;color:var(--text);font-weight:500; }
-
-        .hobbies-grid { display:grid;grid-template-columns:1fr 1fr;gap:1rem; }
-        .hobby-card {
-            padding:1.4rem;background:var(--card);border-radius:14px;
-            border:1px solid var(--border);text-align:center;
-            transition:all .3s ease;cursor:default;
-            box-shadow:var(--shadow);
-        }
-        .hobby-card:hover {
-            border-color:var(--sky);
-            transform:translateY(-4px);
-            box-shadow:0 12px 32px rgba(2,132,199,.15);
-        }
-        .hobby-icon { font-size:1.7rem;margin-bottom:.4rem; }
-        .hobby-name { font-size:.78rem;font-weight:600;color:var(--sky-dark); }
-
-        /* ── EDUCATION ── */
-        .edu-timeline { position:relative;padding-left:2rem; }
-        .edu-timeline::before {
-            content:'';position:absolute;left:0;top:0;bottom:0;
-            width:2px;background:linear-gradient(to bottom,var(--sky),rgba(56,189,248,.1));
-            border-radius:2px;
-        }
-        .edu-item {
-            position:relative;margin-bottom:1.5rem;padding-left:1.5rem;
-        }
-        .edu-dot {
-            position:absolute;left:-2.35rem;top:1.6rem;
-            width:14px;height:14px;border-radius:50%;
-            background:var(--card);border:2px solid var(--sky);
-        }
-        .edu-dot::after {
-            content:'';position:absolute;inset:3px;
-            background:var(--sky);border-radius:50%;
-        }
-        .edu-content {
-            background:var(--card);border-radius:14px;padding:1.8rem;
-            border:1px solid var(--border);box-shadow:var(--shadow);
-            transition:border-color .25s,transform .25s;
-        }
-        .edu-content:hover { border-color:var(--sky);transform:translateX(4px); }
-        .edu-period {
-            font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;
-            color:var(--sky);font-weight:600;margin-bottom:.4rem;
-        }
-        .edu-degree {
-            font-family:'Syne',sans-serif;font-weight:700;
-            font-size:1.15rem;margin-bottom:.3rem;color:var(--text);
-        }
-        .edu-school { font-size:.82rem;color:var(--muted); }
-
-        /* ── SKILLS ── */
-        .skills-wrapper { display:grid;grid-template-columns:1.4fr 1fr;gap:4rem; }
-
-        .skill-cat-label {
-            font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;
-            color:var(--teal);font-weight:700;margin-bottom:1rem;
-            display:flex;align-items:center;gap:.7rem;
-        }
-        .skill-cat-label::after {
-            content:'';flex:1;height:1px;background:rgba(6,182,212,.2);
-        }
-        .skill-item { margin-bottom:1.5rem; }
-        .skill-head {
-            display:flex;justify-content:space-between;align-items:baseline;
-            margin-bottom:.6rem;
-        }
-        .skill-name { font-size:.85rem;font-weight:500;color:var(--text); }
-        .skill-pct { font-size:.72rem;font-weight:700;color:var(--sky); }
-        .skill-bar {
-            height:4px;background:rgba(2,132,199,.1);
-            border-radius:4px;overflow:hidden;
-        }
-        .skill-fill {
-            height:100%;border-radius:4px;
-            background:linear-gradient(to right,var(--sky),var(--teal));
-            transform:scaleX(0);transform-origin:left;
-            transition:transform 1.3s cubic-bezier(.16,1,.3,1);
-        }
-
-        .soft-grid { display:flex;flex-wrap:wrap;gap:.6rem; }
-        .soft-tag {
-            padding:.45rem .95rem;border-radius:100px;
-            border:1.5px solid var(--border);
-            font-size:.75rem;color:var(--muted);font-weight:500;
-            transition:all .2s;
-        }
-        .soft-tag:hover {
-            border-color:var(--sky);color:var(--sky-deep);
-            background:rgba(56,189,248,.07);
-        }
-
-        .lang-item {
-            display:flex;align-items:center;gap:1rem;
-            padding:.9rem 1.1rem;background:var(--card);
-            border-radius:10px;border:1px solid var(--border);
-            margin-bottom:.7rem;box-shadow:var(--shadow);
-        }
-        .lang-flag { font-size:1.2rem; }
-        .lang-name { font-size:.82rem;font-weight:500;color:var(--text); }
-        .lang-level { font-size:.65rem;color:var(--muted); }
-        .lang-dots { display:flex;gap:4px;margin-left:auto; }
-        .lang-dot { width:8px;height:8px;border-radius:50%;background:rgba(2,132,199,.15); }
-        .lang-dot.on { background:var(--sky); }
-
-        /* ── PROJECTS GRID ── */
-        .projects-grid { display:grid;grid-template-columns:1fr 1fr;gap:2rem; }
-
-        .project-card {
-            background:var(--card);border-radius:18px;
-            border:1px solid var(--border);overflow:hidden;
-            box-shadow:var(--shadow);
-            transition:all .35s ease;cursor:pointer;
-        }
-        .project-card:hover {
-            border-color:var(--sky);transform:translateY(-8px);
-            box-shadow:0 24px 60px rgba(2,132,199,.18);
-        }
-
-        .project-img-wrap {
-            height:220px;overflow:hidden;position:relative;
-            background:linear-gradient(135deg,var(--surface),var(--sky-soft));
-        }
-        .project-img-wrap img {
-            width:100%;height:100%;object-fit:cover;
-            transition:transform .6s ease;
-        }
-        .project-card:hover .project-img-wrap img { transform:scale(1.06); }
-        .project-type {
-            position:absolute;top:1rem;right:1rem;z-index:2;
-            font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
-            color:var(--sky-deep);background:rgba(240,247,255,.9);
-            border:1px solid var(--border);padding:.3rem .7rem;
-            border-radius:100px;backdrop-filter:blur(8px);font-weight:600;
-        }
-        .project-placeholder {
-            width:100%;height:100%;display:flex;align-items:center;
-            justify-content:center;font-size:4rem;
-            background:linear-gradient(135deg,#e0f2fe,#bae6fd);
-        }
-
-        .project-body { padding:1.8rem; }
-        .project-title {
-            font-family:'Syne',sans-serif;font-weight:700;
-            font-size:1.25rem;margin-bottom:.8rem;letter-spacing:-.02em;
-        }
-        .project-desc {
-            font-size:.82rem;color:var(--muted);line-height:1.8;margin-bottom:1.3rem;
-        }
-        .project-tags { display:flex;flex-wrap:wrap;gap:.5rem; }
-        .project-tag {
-            font-size:.65rem;letter-spacing:.06em;
-            padding:.3rem .8rem;border-radius:100px;
-            background:rgba(56,189,248,.1);color:var(--sky-dark);
-            border:1px solid rgba(56,189,248,.2);font-weight:600;
-        }
-        .project-cta {
-            margin-top:1.2rem;display:flex;align-items:center;gap:.4rem;
-            font-size:.78rem;font-weight:600;color:var(--sky-deep);
-        }
-        .project-cta svg { transition:transform .2s; }
-        .project-card:hover .project-cta svg { transform:translateX(4px); }
-
-        /* ── CONTACT ── */
-        .contact-grid { display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:start; }
-
-        .contact-intro {
-            font-family:'Syne',sans-serif;font-weight:700;
-            font-size:clamp(1.6rem,3.5vw,2.3rem);line-height:1.25;
-            letter-spacing:-.03em;margin-bottom:1.3rem;
-        }
-        .contact-intro em { color:var(--sky-deep);font-style:normal; }
-        .contact-text { font-size:.9rem;color:var(--muted);line-height:1.9; }
-
-        .contact-links { display:flex;flex-direction:column;gap:.9rem; }
-        .contact-link {
-            display:flex;align-items:center;gap:1.2rem;
-            padding:1.1rem 1.4rem;background:var(--card);
-            border:1px solid var(--border);border-radius:14px;
-            text-decoration:none;color:var(--text);
-            box-shadow:var(--shadow);
-            transition:all .3s;
-        }
-        .contact-link:hover {
-            border-color:var(--sky);transform:translateX(6px);
-            box-shadow:0 8px 32px rgba(2,132,199,.15);
-        }
-        .contact-link-icon {
-            width:42px;height:42px;border-radius:10px;
-            background:linear-gradient(135deg,var(--sky-soft),rgba(56,189,248,.35));
-            display:flex;align-items:center;justify-content:center;
-            font-size:1.1rem;flex-shrink:0;
-        }
-        .contact-link-label {
-            font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);
-        }
-        .contact-link-val { font-size:.85rem;font-weight:500;margin-top:.15rem; }
-        .contact-arrow { margin-left:auto;color:var(--sky);font-size:1.1rem;transition:transform .2s; }
-        .contact-link:hover .contact-arrow { transform:translateX(4px); }
-
-        /* ── FOOTER ── */
-        footer {
-            padding:1.8rem 5%;
-            border-top:1px solid var(--border);
-            display:flex;justify-content:space-between;align-items:center;
-            background:var(--bg);
-        }
-        .footer-name { font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem; }
-        .footer-copy { font-size:.7rem;color:var(--muted); }
-
-        /* ════════════════════════
-           PROJECT MODAL / PAGE
-        ════════════════════════ */
-        .modal-overlay {
-            position:fixed;inset:0;z-index:500;
-            background:rgba(15,23,42,.55);
-            backdrop-filter:blur(6px);
-            display:flex;align-items:center;justify-content:center;
-            padding:2rem;
-            opacity:0;pointer-events:none;
-            transition:opacity .3s ease;
-        }
-        .modal-overlay.open { opacity:1;pointer-events:all; }
-
-        .modal {
-            background:var(--card);border-radius:24px;
-            width:100%;max-width:860px;max-height:90vh;
-            overflow-y:auto;
-            border:1px solid var(--border);
-            box-shadow:0 40px 100px rgba(2,132,199,.2);
-            transform:translateY(30px) scale(.97);
-            transition:transform .35s cubic-bezier(.16,1,.3,1);
-            position:relative;
-        }
-        .modal-overlay.open .modal { transform:translateY(0) scale(1); }
-
-        .modal-close {
-            position:absolute;top:1.2rem;right:1.2rem;z-index:10;
-            width:40px;height:40px;border-radius:50%;
-            background:var(--surface);border:1px solid var(--border);
-            display:flex;align-items:center;justify-content:center;
-            cursor:pointer;font-size:1.1rem;color:var(--muted);
-            transition:all .2s;
-        }
-        .modal-close:hover { background:var(--sky);color:#fff;border-color:var(--sky); }
-
-        .modal-hero {
-            height:280px;overflow:hidden;border-radius:24px 24px 0 0;
-            position:relative;
-            background:linear-gradient(135deg,#e0f2fe,#bae6fd);
-        }
-        .modal-hero img {
-            width:100%;height:100%;object-fit:cover;
-        }
-        .modal-hero-placeholder {
-            width:100%;height:100%;display:flex;align-items:center;
-            justify-content:center;font-size:5rem;
-        }
-        .modal-hero-overlay {
-            position:absolute;inset:0;
-            background:linear-gradient(to top,rgba(255,255,255,.9) 0%,transparent 60%);
-        }
-        .modal-badge {
-            position:absolute;top:1.5rem;left:1.5rem;
-            font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;
-            color:var(--sky-deep);background:rgba(240,247,255,.92);
-            border:1px solid var(--border);padding:.35rem .85rem;
-            border-radius:100px;backdrop-filter:blur(8px);font-weight:700;
-        }
-
-        .modal-body { padding:2rem 2.5rem 3rem; }
-
-        .modal-title {
-            font-family:'Syne',sans-serif;font-weight:800;
-            font-size:2rem;letter-spacing:-.04em;margin-bottom:.6rem;
-        }
-        .modal-tags { display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.8rem; }
-        .modal-tag {
-            font-size:.67rem;letter-spacing:.06em;
-            padding:.32rem .85rem;border-radius:100px;
-            background:rgba(56,189,248,.12);color:var(--sky-dark);
-            border:1px solid rgba(56,189,248,.22);font-weight:600;
-        }
-
-        .modal-section-title {
-            font-family:'Syne',sans-serif;font-weight:700;
-            font-size:1rem;letter-spacing:-.01em;margin-bottom:1rem;
-            color:var(--sky-dark);display:flex;align-items:center;gap:.5rem;
-        }
-        .modal-section-title::after {
-            content:'';flex:1;height:1px;background:var(--border);
-        }
-
-        .modal-desc {
-            font-size:.9rem;line-height:1.9;color:var(--muted);margin-bottom:2rem;
-        }
-
-        .modal-features {
-            display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:2rem;
-        }
-        .feature-item {
-            display:flex;align-items:flex-start;gap:.7rem;
-            padding:1rem 1.2rem;background:var(--surface);
-            border-radius:10px;border:1px solid var(--border);
-        }
-        .feature-icon { font-size:1.1rem;flex-shrink:0;margin-top:.05rem; }
-        .feature-text { font-size:.82rem;line-height:1.6;color:var(--muted); }
-        .feature-text strong { color:var(--text);font-weight:600; }
-
-        .modal-stack {
-            display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem;
-        }
-        .stack-chip {
-            padding:.45rem 1rem;border-radius:8px;font-size:.75rem;font-weight:600;
-            background:linear-gradient(135deg,rgba(56,189,248,.12),rgba(6,182,212,.1));
-            color:var(--sky-dark);border:1px solid rgba(56,189,248,.2);
-        }
-
-        .modal-code {
-            background:var(--text);color:#e2e8f0;
-            border-radius:12px;padding:1.5rem;
-            font-family:'Courier New',monospace;font-size:.8rem;
-            line-height:1.7;margin-bottom:2rem;overflow-x:auto;
-        }
-        .code-comment { color:#94a3b8; }
-        .code-keyword { color:#7dd3fc; }
-        .code-fn { color:#86efac; }
-        .code-str { color:#fde68a; }
-        .code-num { color:#c4b5fd; }
-
-        /* ── SCROLL REVEAL ── */
-        .reveal { opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease; }
-        .reveal.visible { opacity:1;transform:translateY(0); }
-        .reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}
-        .reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
-
-        /* ── RESPONSIVE ── */
-        @media(max-width:900px) {
-            .about-grid,.skills-wrapper,.contact-grid { grid-template-columns:1fr;gap:3rem; }
-            .projects-grid { grid-template-columns:1fr; }
-            .modal-features { grid-template-columns:1fr; }
-            .modal-body { padding:1.5rem 1.5rem 2.5rem; }
-        }
-        @media(max-width:640px) {
-            nav { padding:1rem 5%; }
-            .nav-links { display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(240,247,255,.97);backdrop-filter:blur(18px);padding:1.5rem 5%;border-bottom:1px solid var(--border); }
-            .nav-links.open { display:flex; }
-            .nav-burger { display:flex; }
-            section { padding:4.5rem 5%; }
-            #hero { padding:8rem 5% 4rem; }
-            .hero-stats { gap:2rem; }
-            footer { flex-direction:column;gap:.5rem;text-align:center; }
-            .modal-overlay { padding:1rem;align-items:flex-end; }
-            .modal { max-height:95vh;border-radius:20px 20px 0 0; }
-            .modal-hero { height:200px;border-radius:20px 20px 0 0; }
-            .hero-name { font-size:clamp(2.6rem,11vw,4rem); }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ileri Olayode - Portfolio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:#f0f7ff;color:#0f172a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1rem 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(240,247,255,.95);backdrop-filter:blur(18px);border-bottom:1px solid rgba(56,189,248,.25)}
+.logo{font-weight:900;font-size:1.1rem;text-decoration:none;color:#0f172a}.logo span{color:#0284c7}
+.links{display:flex;gap:1.5rem;list-style:none}
+.links a{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#64748b;text-decoration:none;font-weight:600}
+.links a:hover{color:#0284c7}
+#hero{min-height:100vh;display:flex;align-items:center;padding:9rem 5% 5rem;background:#f0f7ff;position:relative;overflow:hidden}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(56,189,248,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.07) 1px,transparent 1px);background-size:80px 80px}
+.blob{position:absolute;border-radius:50%;filter:blur(80px)}
+.b1{width:500px;height:500px;background:rgba(56,189,248,.15);top:-80px;right:-80px}
+.b2{width:350px;height:350px;background:rgba(6,182,212,.1);bottom:0;left:-40px}
+.hc{position:relative;z-index:1;max-width:800px}
+.badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#0284c7;padding:.35rem 1rem;border-radius:100px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.3);margin-bottom:1.8rem;font-weight:700}
+.badge::before{content:'';width:6px;height:6px;background:#38bdf8;border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hname{font-weight:900;font-size:clamp(2.8rem,8vw,5.5rem);line-height:.95;letter-spacing:-.04em;margin-bottom:1.4rem}
+.hollow{-webkit-text-stroke:2px #0284c7;color:transparent}
+.dot{color:#38bdf8}
+.hdesc{font-size:.95rem;color:#64748b;line-height:1.9;max-width:440px;margin-bottom:2.2rem}
+.hdesc strong{color:#0369a1;font-weight:600}
+.hbtns{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn{display:inline-flex;align-items:center;padding:.8rem 1.8rem;border-radius:8px;font-size:.8rem;font-weight:700;text-decoration:none;cursor:pointer;border:none;transition:all .2s}
+.btn-p{background:#0284c7;color:#fff;box-shadow:0 4px 16px rgba(2,132,199,.3)}
+.btn-p:hover{transform:translateY(-2px)}
+.btn-o{border:2px solid rgba(56,189,248,.4);color:#0284c7;background:#fff}
+.btn-o:hover{border-color:#38bdf8;transform:translateY(-2px)}
+.hstats{display:flex;gap:2.5rem;flex-wrap:wrap}
+.snum{font-weight:900;font-size:2.4rem;line-height:1;color:#0369a1}
+.snum sub{font-size:1rem;color:#38bdf8}
+.slbl{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:#64748b;margin-top:.15rem}
+section{padding:5rem 5%}
+section:nth-child(even){background:#e3f0fd}
+.sh{display:flex;align-items:center;gap:1rem;margin-bottom:3rem}
+.sn{font-size:.68rem;font-weight:700;color:#38bdf8;letter-spacing:.12em}
+.st{font-weight:900;font-size:clamp(1.6rem,3.5vw,2.3rem);letter-spacing:-.03em}
+.sl{flex:1;height:1px;background:linear-gradient(to right,rgba(56,189,248,.3),transparent)}
+.ag{display:grid;grid-template-columns:1.3fr 1fr;gap:3.5rem;align-items:start}
+.at p{font-size:.9rem;line-height:1.9;color:#64748b;margin-bottom:1rem}
+.at p strong{color:#0369a1;font-weight:600}
+.ic{display:flex;flex-direction:column;gap:.5rem;margin-top:1.5rem}
+.icard{display:flex;align-items:center;gap:.8rem;padding:.8rem 1.1rem;background:#fff;border-radius:10px;border:1px solid rgba(56,189,248,.2)}
+.iico{width:30px;height:30px;border-radius:7px;background:#e0f2fe;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+.ilbl{font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:#64748b}
+.ival{font-size:.84rem;font-weight:500}
+.hg{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.hob{padding:1.2rem;background:#fff;border-radius:12px;border:1px solid rgba(56,189,248,.2);text-align:center}
+.hob:hover{border-color:#38bdf8}
+.hico{font-size:1.5rem;margin-bottom:.3rem}
+.hnm{font-size:.74rem;font-weight:700;color:#0369a1}
+.etl{position:relative;padding-left:1.8rem}
+.etl::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#38bdf8,rgba(56,189,248,.1));border-radius:2px}
+.ei{position:relative;margin-bottom:1.2rem;padding-left:1.2rem}
+.edot{position:absolute;left:-2.1rem;top:1.4rem;width:12px;height:12px;border-radius:50%;background:#f0f7ff;border:2px solid #38bdf8}
+.edot::after{content:'';position:absolute;inset:2px;background:#38bdf8;border-radius:50%}
+.ebox{background:#fff;border-radius:12px;padding:1.5rem;border:1px solid rgba(56,189,248,.2)}
+.ebox:hover{border-color:#38bdf8}
+.eper{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:#38bdf8;font-weight:700;margin-bottom:.3rem}
+.edeg{font-weight:800;font-size:1.05rem;margin-bottom:.2rem}
+.esch{font-size:.8rem;color:#64748b}
+.sw{display:grid;grid-template-columns:1.4fr 1fr;gap:3.5rem}
+.scat{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:#06b6d4;font-weight:700;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem}
+.scat::after{content:'';flex:1;height:1px;background:rgba(6,182,212,.2)}
+.ski{margin-bottom:1.3rem}
+.skh{display:flex;justify-content:space-between;margin-bottom:.4rem}
+.skn{font-size:.82rem}
+.skp{font-size:.7rem;font-weight:700;color:#38bdf8}
+.skbar{height:3px;background:rgba(2,132,199,.1);border-radius:3px;overflow:hidden}
+.skf{height:100%;border-radius:3px;background:linear-gradient(to right,#38bdf8,#06b6d4)}
+.sfg{display:flex;flex-wrap:wrap;gap:.5rem}
+.stag{padding:.4rem .85rem;border-radius:100px;border:1px solid rgba(56,189,248,.25);font-size:.73rem;color:#64748b}
+.li{display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;background:#fff;border-radius:9px;border:1px solid rgba(56,189,248,.2);margin-bottom:.5rem}
+.lf{font-size:1rem}
+.ln{font-size:.8rem;font-weight:500}
+.lv{font-size:.62rem;color:#64748b}
+.lds{display:flex;gap:3px;margin-left:auto}
+.ld{width:7px;height:7px;border-radius:50%;background:rgba(2,132,199,.15)}
+.ld.on{background:#38bdf8}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem}
+.pc{background:#fff;border-radius:16px;border:1px solid rgba(56,189,248,.2);overflow:hidden;cursor:pointer;transition:all .3s;position:relative}
+.pc:hover{border-color:#38bdf8;transform:translateY(-6px);box-shadow:0 20px 50px rgba(2,132,199,.15)}
+.pi{height:180px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative}
+.pt{position:absolute;top:.8rem;right:.8rem;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#0284c7;background:rgba(240,247,255,.95);border:1px solid rgba(56,189,248,.25);padding:.25rem .6rem;border-radius:100px;font-weight:700}
+.pb{padding:1.5rem}
+.ptl{font-weight:800;font-size:1.1rem;margin-bottom:.6rem}
+.pd{font-size:.8rem;color:#64748b;line-height:1.75;margin-bottom:1rem}
+.ptgs{display:flex;flex-wrap:wrap;gap:.4rem}
+.ptg{font-size:.62rem;padding:.25rem .7rem;border-radius:100px;background:rgba(56,189,248,.1);color:#0369a1;border:1px solid rgba(56,189,248,.2);font-weight:700}
+.pcta{margin-top:.8rem;font-size:.74rem;font-weight:700;color:#0284c7}
+.wip{font-size:.55rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f97316;background:#fff7ed;border:1px solid #fed7aa;padding:.18rem .55rem;border-radius:100px;margin-left:.5rem;vertical-align:middle}
+.cg{display:grid;grid-template-columns:1.2fr 1fr;gap:3.5rem;align-items:start}
+.cintro{font-weight:900;font-size:clamp(1.5rem,3vw,2rem);line-height:1.3;margin-bottom:1rem}
+.cintro em{color:#0284c7;font-style:normal}
+.ctxt{font-size:.88rem;color:#64748b;line-height:1.9}
+.cls{display:flex;flex-direction:column;gap:.8rem}
+.cl{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:#fff;border:1px solid rgba(56,189,248,.2);border-radius:13px;text-decoration:none;color:#0f172a;transition:all .25s}
+.cl:hover{border-color:#38bdf8;transform:translateX(5px)}
+.clic{width:38px;height:38px;border-radius:9px;background:#e0f2fe;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.cllbl{font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:#64748b}
+.clval{font-size:.82rem;font-weight:500;margin-top:.1rem}
+.clarr{margin-left:auto;color:#38bdf8}
+footer{padding:1.5rem 5%;border-top:1px solid rgba(56,189,248,.2);display:flex;justify-content:space-between;align-items:center;background:#f0f7ff}
+.fn{font-weight:900;font-size:.88rem}
+.fc{font-size:.68rem;color:#64748b}
+.ov{position:fixed;inset:0;z-index:500;background:rgba(15,23,42,.55);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .25s}
+.ov.open{opacity:1;pointer-events:all}
+.mbox{background:#fff;border-radius:20px;width:100%;max-width:820px;max-height:88vh;overflow-y:auto;border:1px solid rgba(56,189,248,.25);position:relative;transform:translateY(20px) scale(.97);transition:transform .3s}
+.ov.open .mbox{transform:translateY(0) scale(1)}
+.mx{position:absolute;top:1rem;right:1rem;z-index:10;width:36px;height:36px;border-radius:50%;background:#f0f7ff;border:1px solid rgba(56,189,248,.25);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;color:#64748b;line-height:1}
+.mx:hover{background:#38bdf8;color:#fff}
+.mhero{height:240px;display:flex;align-items:center;justify-content:center;font-size:5rem;border-radius:20px 20px 0 0;position:relative}
+.mbadge{position:absolute;top:1.2rem;left:1.2rem;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:#0284c7;background:rgba(255,255,255,.92);border:1px solid rgba(56,189,248,.3);padding:.3rem .75rem;border-radius:100px;font-weight:700}
+.mbody{padding:1.8rem 2.2rem 2.5rem}
+.mttl{font-weight:900;font-size:1.8rem;letter-spacing:-.03em;margin-bottom:.5rem}
+.mtgs{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem}
+.mtg{font-size:.64rem;padding:.28rem .78rem;border-radius:100px;background:rgba(56,189,248,.1);color:#0369a1;border:1px solid rgba(56,189,248,.2);font-weight:700}
+.msec{font-weight:800;font-size:.92rem;color:#0369a1;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;margin-top:1.4rem}
+.msec::after{content:'';flex:1;height:1px;background:rgba(56,189,248,.2)}
+.mdesc{font-size:.86rem;line-height:1.85;color:#64748b}
+.mfeats{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.5rem}
+.mfeat{display:flex;gap:.6rem;padding:.85rem 1rem;background:#f0f7ff;border-radius:9px;border:1px solid rgba(56,189,248,.15)}
+.mfic{font-size:1rem;flex-shrink:0}
+.mftxt{font-size:.78rem;line-height:1.55;color:#64748b}
+.mftxt strong{color:#0f172a;font-weight:600}
+.mstack{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+.mchip{padding:.38rem .9rem;border-radius:7px;font-size:.72rem;font-weight:700;background:rgba(56,189,248,.1);color:#0369a1;border:1px solid rgba(56,189,248,.2)}
+.mcode{background:#0f172a;color:#e2e8f0;border-radius:11px;padding:1.3rem;font-family:monospace;font-size:.78rem;line-height:1.75;margin-top:.5rem;overflow-x:auto;white-space:pre}
+.ck{color:#7dd3fc}.cf{color:#86efac}.cs{color:#fde68a}.cn{color:#c4b5fd}.cc{color:#94a3b8}
+@media(max-width:860px){.ag,.sw,.cg{grid-template-columns:1fr;gap:2.5rem}.pg{grid-template-columns:1fr}.mfeats{grid-template-columns:1fr}}
+@media(max-width:600px){nav{padding:.9rem 5%}.links{display:none}#hero{padding:7rem 5% 4rem}.hstats{gap:1.8rem}.ov{padding:.8rem;align-items:flex-end}.mbox{max-height:92vh;border-radius:18px 18px 0 0}.mhero{height:180px;border-radius:18px 18px 0 0}}
+</style>
 </head>
 <body>
 
-    <!-- NAV -->
-    <nav>
-        <a href="#hero" class="nav-logo">IO<span>.</span></a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#about" onclick="closeMobileNav()">À propos</a></li>
-            <li><a href="#education" onclick="closeMobileNav()">Études</a></li>
-            <li><a href="#skills" onclick="closeMobileNav()">Compétences</a></li>
-            <li><a href="#projects" onclick="closeMobileNav()">Projets</a></li>
-            <li><a href="#contact" onclick="closeMobileNav()">Contact</a></li>
-        </ul>
-        <button class="nav-burger" id="navBurger" onclick="toggleNav()" aria-label="Menu">
-            <span></span><span></span><span></span>
-        </button>
-    </nav>
+<nav>
+  <a href="#hero" class="logo">IO<span>.</span></a>
+  <ul class="links">
+    <li><a href="#about">A propos</a></li>
+    <li><a href="#edu">Etudes</a></li>
+    <li><a href="#skills">Competences</a></li>
+    <li><a href="#proj">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-    <!-- HERO -->
-    <section id="hero">
-        <div class="hero-bg-blobs" aria-hidden="true">
-            <div class="blob blob-1"></div>
-            <div class="blob blob-2"></div>
-            <div class="blob blob-3"></div>
-        </div>
-        <div class="hero-grid" aria-hidden="true"></div>
-
-        <div class="hero-content">
-            <div class="hero-badge">Disponible — Île-de-France</div>
-            <h1 class="hero-name">
-                <div>Ileri</div>
-                <div class="hollow">Olayode<span class="dot">.</span></div>
-            </h1>
-            <p class="hero-desc">
-                Étudiant en <strong>BTS SIO SLAM</strong> au Lycée LeRebours, Paris.<br>
-                Passionné par le développement web, les jeux vidéo<br>
-                et la création d'expériences numériques.
-            </p>
-            <div class="hero-cta">
-                <a href="#projects" class="btn btn-primary">Voir mes projets →</a>
-                <a href="#contact" class="btn btn-outline">Me contacter</a>
-            </div>
-            <div class="hero-stats">
-                <div>
-                    <div class="stat-num">2<sub>+</sub></div>
-                    <div class="stat-label">Projets</div>
-                </div>
-                <div>
-                    <div class="stat-num">10<sub>+</sub></div>
-                    <div class="stat-label">Technologies</div>
-                </div>
-                <div>
-                    <div class="stat-num">4</div>
-                    <div class="stat-label">Langues</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about">
-        <div class="section-header reveal">
-            <span class="section-num">01</span>
-            <h2 class="section-title">À propos</h2>
-            <div class="section-line"></div>
-        </div>
-        <div class="about-grid">
-            <div class="about-text reveal reveal-d1">
-                <p>Je suis un développeur passionné par le <strong>web et les jeux vidéo</strong>, actuellement en BTS SIO option SLAM. J'aime concevoir des expériences numériques qui mêlent logique et créativité.</p>
-                <p>Curieux et adaptable, je suis toujours à la recherche de nouvelles technologies et de défis techniques qui me permettent d'évoluer.</p>
-                <div class="info-cards">
-                    <div class="info-card">
-                        <div class="info-icon">📍</div>
-                        <div>
-                            <div class="info-label">Région</div>
-                            <div class="info-val">Île-de-France</div>
-                        </div>
-                    </div>
-                    <div class="info-card">
-                        <div class="info-icon">🎓</div>
-                        <div>
-                            <div class="info-label">Statut</div>
-                            <div class="info-val">Étudiant BTS SIO SLAM</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="hobbies-grid reveal reveal-d2">
-                <div class="hobby-card">
-                    <div class="hobby-icon">🎮</div>
-                    <div class="hobby-name">Jeux vidéo</div>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-icon">✈️</div>
-                    <div class="hobby-name">Voyage</div>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-icon">💻</div>
-                    <div class="hobby-name">Programmation</div>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-icon">🍳</div>
-                    <div class="hobby-name">Cuisine</div>
-                </div>
-                <div class="hobby-card" style="grid-column:1/-1">
-                    <div class="hobby-icon">🏀</div>
-                    <div class="hobby-name">Basket-ball</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- EDUCATION -->
-    <section id="education">
-        <div class="section-header reveal">
-            <span class="section-num">02</span>
-            <h2 class="section-title">Études</h2>
-            <div class="section-line"></div>
-        </div>
-        <div class="edu-timeline">
-            <div class="edu-item reveal reveal-d1">
-                <div class="edu-dot"></div>
-                <div class="edu-content">
-                    <div class="edu-period">2025 — 2027</div>
-                    <div class="edu-degree">BTS SIO — option SLAM</div>
-                    <div class="edu-school">Lycée LeRebours · Paris 13ème</div>
-                </div>
-            </div>
-            <div class="edu-item reveal reveal-d2">
-                <div class="edu-dot"></div>
-                <div class="edu-content">
-                    <div class="edu-period">2019 — 2021</div>
-                    <div class="edu-degree">Baccalauréat Général</div>
-                    <div class="edu-school">Lycée Jean-Racine · Montdidier</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills">
-        <div class="section-header reveal">
-            <span class="section-num">03</span>
-            <h2 class="section-title">Compétences</h2>
-            <div class="section-line"></div>
-        </div>
-        <div class="skills-wrapper">
-            <div>
-                <div class="skill-cat-label reveal">Back-End</div>
-                <div class="skill-item reveal reveal-d1">
-                    <div class="skill-head"><span class="skill-name">Python</span><span class="skill-pct">90%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" data-val=".9"></div></div>
-                </div>
-                <div class="skill-item reveal reveal-d1">
-                    <div class="skill-head"><span class="skill-name">Flask</span><span class="skill-pct">55%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" data-val=".55"></div></div>
-                </div>
-                <div class="skill-item reveal reveal-d2">
-                    <div class="skill-head"><span class="skill-name">PHP</span><span class="skill-pct">25%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" data-val=".25"></div></div>
-                </div>
-                <div class="skill-item reveal reveal-d2">
-                    <div class="skill-head"><span class="skill-name">Java</span><span class="skill-pct">20%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" data-val=".2"></div></div>
-                </div>
-
-                <div class="skill-cat-label reveal" style="margin-top:2rem">Front-End</div>
-                <div class="skill-item reveal reveal-d1">
-                    <div class="skill-head"><span class="skill-name">HTML5</span><span class="skill-pct">70%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" data-val=".7"></div></div>
-                </div>
-                <div class="skill-item reveal reveal-d1">
-                    <div class="skill-head"><span class="skill-name">CSS3</span><span class="skill-pct">60%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" data-val=".6"></div></div>
-                </div>
-                <div class="skill-item reveal reveal-d2">
-                    <div class="skill-head"><span class="skill-name">JavaScript</span><span class="skill-pct">20%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" data-val=".2"></div></div>
-                </div>
-                <div class="skill-item reveal reveal-d2">
-                    <div class="skill-head"><span class="skill-name">Bootstrap</span><span class="skill-pct">40%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" data-val=".4"></div></div>
-                </div>
-
-                <div class="skill-cat-label reveal" style="margin-top:2rem">Base de données & Outils</div>
-                <div class="skill-item reveal reveal-d1">
-                    <div class="skill-head"><span class="skill-name">SQL / MySQL</span><span class="skill-pct">35%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" data-val=".35"></div></div>
-                </div>
-                <div class="skill-item reveal reveal-d1">
-                    <div class="skill-head"><span class="skill-name">SQLite</span><span class="skill-pct">40%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" data-val=".4"></div></div>
-                </div>
-                <div class="skill-item reveal reveal-d2">
-                    <div class="skill-head"><span class="skill-name">GitHub</span><span class="skill-pct">50%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" data-val=".5"></div></div>
-                </div>
-                <div class="skill-item reveal reveal-d2">
-                    <div class="skill-head"><span class="skill-name">Trello</span><span class="skill-pct">60%</span></div>
-                    <div class="skill-bar"><div class="skill-fill" data-val=".6"></div></div>
-                </div>
-
-                <div style="margin-top:2.5rem">
-                    <p class="skill-cat-label reveal" style="color:var(--sky-deep)">Langues</p>
-                    <div class="lang-item reveal reveal-d1">
-                        <span class="lang-flag">🇫🇷</span>
-                        <div><div class="lang-name">Français</div><div class="lang-level">Langue natale</div></div>
-                        <div class="lang-dots"><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div></div>
-                    </div>
-                    <div class="lang-item reveal reveal-d1">
-                        <span class="lang-flag">🇬🇧</span>
-                        <div><div class="lang-name">Anglais</div><div class="lang-level">Professionnel</div></div>
-                        <div class="lang-dots"><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot on"></div><div class="lang-dot"></div></div>
-                    </div>
-                    <div class="lang-item reveal reveal-d2">
-                        <span class="lang-flag">🇪🇸</span>
-                        <div><div class="lang-name">Espagnol</div><div class="lang-level">Débutant</div></div>
-                        <div class="lang-dots"><div class="lang-dot on"></div><div class="lang-dot"></div><div class="lang-dot"></div><div class="lang-dot"></div><div class="lang-dot"></div></div>
-                    </div>
-                    <div class="lang-item reveal reveal-d2">
-                        <span class="lang-flag">🇩🇪</span>
-                        <div><div class="lang-name">Allemand</div><div class="lang-level">Débutant</div></div>
-                        <div class="lang-dots"><div class="lang-dot on"></div><div class="lang-dot"></div><div class="lang-dot"></div><div class="lang-dot"></div><div class="lang-dot"></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="reveal reveal-d2">
-                <p style="font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;">Compétences personnelles</p>
-                <div class="soft-grid">
-                    <span class="soft-tag">👥 Travail d'équipe</span>
-                    <span class="soft-tag">💬 Communication</span>
-                    <span class="soft-tag">🔍 Curiosité</span>
-                    <span class="soft-tag">⚡ Réactivité</span>
-                    <span class="soft-tag">🤝 Bienveillance</span>
-                    <span class="soft-tag">🔄 Adaptabilité</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects">
-        <div class="section-header reveal">
-            <span class="section-num">04</span>
-            <h2 class="section-title">Projets</h2>
-            <div class="section-line"></div>
-        </div>
-        <div class="projects-grid">
-            <div class="project-card reveal reveal-d1" onclick="openProject('hero')">
-                <div class="project-img-wrap">
-                    <span class="project-type">Python · Terminal</span>
-                    <div class="project-placeholder">⚔️</div>
-                </div>
-                <div class="project-body">
-                    <h3 class="project-title">Jeu Héros</h3>
-                    <p class="project-desc">Jeu de combat en tour par tour développé en Python, jouable dans le terminal. Affrontez un ennemi avec 50 PV, des attaques aléatoires et un système de potions limité.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Python</span>
-                        <span class="project-tag">Boucles</span>
-                        <span class="project-tag">Fonctions</span>
-                        <span class="project-tag">Aléatoire</span>
-                    </div>
-                    <div class="project-cta">
-                        Voir le projet
-                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card reveal reveal-d2" onclick="openProject('mexigo')">
-                <div class="project-img-wrap">
-                    <span class="project-type">HTML · CSS · JS</span>
-                    <div class="project-placeholder">🌮</div>
-                </div>
-                <div class="project-body">
-                    <h3 class="project-title">MexiGo</h3>
-                    <p class="project-desc">Site vitrine responsive pour une agence de voyage spécialisée au Mexique. Navigation fluide, identité visuelle chaleureuse, formulaire de contact fonctionnel.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">HTML5</span>
-                        <span class="project-tag">CSS3</span>
-                        <span class="project-tag">JavaScript</span>
-                        <span class="project-tag">Responsive</span>
-                    </div>
-                    <div class="project-cta">
-                        Voir le projet
-                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-        <div class="section-header reveal">
-            <span class="section-num">05</span>
-            <h2 class="section-title">Contact</h2>
-            <div class="section-line"></div>
-        </div>
-        <div class="contact-grid">
-            <div class="reveal">
-                <p class="contact-intro">Intéressé par mon profil ?<br><em>Discutons-en.</em></p>
-                <p class="contact-text">Je suis ouvert aux opportunités de stage, d'alternance ou de collaboration sur des projets web. N'hésitez pas à me contacter !</p>
-            </div>
-            <div class="contact-links">
-                <a href="/cdn-cgi/l/email-protection#aec7c1c2cfd7c1cacbeec2cbdccbccc1dbdcdd80c8dc" class="contact-link reveal reveal-d1">
-                    <div class="contact-link-icon">✉️</div>
-                    <div class="contact-link-info">
-                        <div class="contact-link-label">Email</div>
-                        <div class="contact-link-val"><span class="__cf_email__" data-cfemail="30595f5c51495f5455705c554255525f4542431e5642">[email&#160;protected]</span></div>
-                    </div>
-                    <span class="contact-arrow">→</span>
-                </a>
-                <a href="tel:+33633231591" class="contact-link reveal reveal-d2">
-                    <div class="contact-link-icon">📱</div>
-                    <div class="contact-link-info">
-                        <div class="contact-link-label">Téléphone</div>
-                        <div class="contact-link-val">+33 6 33 23 15 91</div>
-                    </div>
-                    <span class="contact-arrow">→</span>
-                </a>
-                <a href="https://www.linkedin.com/in/ileri-olayode" target="_blank" class="contact-link reveal reveal-d3">
-                    <div class="contact-link-icon">💼</div>
-                    <div class="contact-link-info">
-                        <div class="contact-link-label">LinkedIn</div>
-                        <div class="contact-link-val">ileri-olayode</div>
-                    </div>
-                    <span class="contact-arrow">→</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <span class="footer-name">Ileri Olayode</span>
-        <span class="footer-copy">© 2025 — Tous droits réservés</span>
-    </footer>
-
-    <!-- ══════════════════════════════════
-         MODAL — PROJET JEUX HÉROS
-    ══════════════════════════════════ -->
-    <div class="modal-overlay" id="modal-hero" role="dialog" aria-modal="true" aria-label="Projet Jeu Héros">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal('hero')" aria-label="Fermer">✕</button>
-            <div class="modal-hero">
-                <img src="Image/Projet_jeu.png" alt="Jeu Héros" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div class="modal-hero-placeholder" style="display:none">⚔️</div>
-                <div class="modal-hero-overlay"></div>
-                <span class="modal-badge">Python · Terminal · 2025</span>
-            </div>
-            <div class="modal-body">
-                <h2 class="modal-title">Jeu Héros</h2>
-                <div class="modal-tags">
-                    <span class="modal-tag">Python</span>
-                    <span class="modal-tag">Terminal</span>
-                    <span class="modal-tag">Boucles</span>
-                    <span class="modal-tag">Fonctions</span>
-                    <span class="modal-tag">Aléatoire</span>
-                </div>
-
-                <p class="modal-section-title">Description</p>
-                <p class="modal-desc">
-                    Jeu de combat en tour par tour entièrement développé en Python, jouable directement dans le terminal. Le joueur incarne un héros qui affronte un ennemi disposant de 50 points de vie. Chaque tour, le joueur peut attaquer (dégâts aléatoires), utiliser une potion (nombre limité) ou tenter de fuir. Le projet met en pratique les fondamentaux du langage Python : boucles, fonctions, conditions et gestion de l'aléatoire.
-                </p>
-
-                <p class="modal-section-title">Fonctionnalités</p>
-                <div class="modal-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">⚔️</span>
-                        <div class="feature-text"><strong>Combat en tour par tour</strong><br>Système d'attaque avec dégâts aléatoires pour le héros et l'ennemi.</div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🧪</span>
-                        <div class="feature-text"><strong>Système de potions</strong><br>3 potions de soin disponibles, à utiliser stratégiquement.</div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🎲</span>
-                        <div class="feature-text"><strong>Dégâts aléatoires</strong><br>Utilisation du module <code>random</code> pour varier les combats.</div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🏆</span>
-                        <div class="feature-text"><strong>Conditions de victoire / défaite</strong><br>Détection automatique de la fin de partie.</div>
-                    </div>
-                </div>
-
-                <p class="modal-section-title">Stack technique</p>
-                <div class="modal-stack">
-                    <span class="stack-chip">Python 3</span>
-                    <span class="stack-chip">random (stdlib)</span>
-                    <span class="stack-chip">Terminal I/O</span>
-                </div>
-
-                <p class="modal-section-title">Extrait de code</p>
-                <div class="modal-code">
-<span class="code-keyword">import</span> random<br>
-<br>
-<span class="code-keyword">def</span> <span class="code-fn">attaquer</span>(attaquant, defenseur):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;degats = random.<span class="code-fn">randint</span>(<span class="code-num">5</span>, <span class="code-num">15</span>)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;defenseur[<span class="code-str">"pv"</span>] -= degats<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-str">f"{attaquant['nom']} inflige {degats} dégâts !"</span>)<br>
-<br>
-<span class="code-keyword">def</span> <span class="code-fn">utiliser_potion</span>(joueur):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> joueur[<span class="code-str">"potions"</span>] > <span class="code-num">0</span>:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;joueur[<span class="code-str">"pv"</span>] = <span class="code-fn">min</span>(joueur[<span class="code-str">"pv"</span>] + <span class="code-num">20</span>, <span class="code-num">100</span>)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;joueur[<span class="code-str">"potions"</span>] -= <span class="code-num">1</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">else</span>:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">print</span>(<span class="code-str">"Plus de potions disponibles !"</span>)
-                </div>
-
-                <p style="font-size:.8rem;color:var(--muted);line-height:1.8;">
-                    Ce projet m'a permis de consolider mes bases en Python : structuration du code en fonctions, utilisation de dictionnaires pour modéliser les entités du jeu, et gestion du flux du programme avec des boucles <code>while</code>.
-                </p>
-            </div>
-        </div>
+<section id="hero">
+  <div class="b1 blob"></div><div class="b2 blob"></div>
+  <div class="grid-bg"></div>
+  <div class="hc">
+    <div class="badge">Disponible - Ile-de-France</div>
+    <h1 class="hname"><div>Ileri</div><div class="hollow">Olayode<span class="dot">.</span></div></h1>
+    <p class="hdesc">Etudiant en <strong>BTS SIO SLAM</strong> au Lycee LeRebours, Paris. Passionne par le developpement web, les jeux video et la creation d experiences numeriques.</p>
+    <div class="hbtns">
+      <a href="#proj" class="btn btn-p">Voir mes projets</a>
+      <a href="#contact" class="btn btn-o">Me contacter</a>
     </div>
-
-    <!-- ══════════════════════════════════
-         MODAL — PROJET MEXIGO
-    ══════════════════════════════════ -->
-    <div class="modal-overlay" id="modal-mexigo" role="dialog" aria-modal="true" aria-label="Projet MexiGo">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal('mexigo')" aria-label="Fermer">✕</button>
-            <div class="modal-hero">
-                <img src="Image/Projet_Site.png" alt="MexiGo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div class="modal-hero-placeholder" style="display:none">🌮</div>
-                <div class="modal-hero-overlay"></div>
-                <span class="modal-badge">HTML · CSS · JS · 2025</span>
-            </div>
-            <div class="modal-body">
-                <h2 class="modal-title">MexiGo</h2>
-                <div class="modal-tags">
-                    <span class="modal-tag">HTML5</span>
-                    <span class="modal-tag">CSS3</span>
-                    <span class="modal-tag">JavaScript</span>
-                    <span class="modal-tag">Responsive</span>
-                    <span class="modal-tag">Site vitrine</span>
-                    <span class="modal-tag">Font Awesome</span>
-                </div>
-
-                <p class="modal-section-title">Description</p>
-                <p class="modal-desc">
-                    MexiGo est un site vitrine multi-pages pour une agence de voyage fictive spécialisée dans les séjours au Mexique. Il comporte plusieurs sections : présentation de l'agence, équipe de conseillers, services proposés, tarifs, témoignages clients et formulaire de contact complet. L'objectif était de construire un site professionnel et cohérent en HTML / CSS pur, sans framework, avec une navigation fluide entre les pages.
-                </p>
-
-                <p class="modal-section-title">Pages & Sections</p>
-                <div class="modal-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">🏠</span>
-                        <div class="feature-text"><strong>Accueil</strong><br>Landing page avec hero, présentation, équipe, services, tarifs et témoignages.</div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🏄</span>
-                        <div class="feature-text"><strong>Activités</strong><br>Page dédiée aux excursions et activités disponibles au Mexique.</div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🍽️</span>
-                        <div class="feature-text"><strong>Gastronomie</strong><br>Page présentant la cuisine mexicaine et les spécialités locales.</div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✉️</span>
-                        <div class="feature-text"><strong>Formulaire de contact</strong><br>Champs nom, email, destination, message — avec validation HTML5 native.</div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">👥</span>
-                        <div class="feature-text"><strong>Équipe conseillers</strong><br>Présentation des 3 conseillers avec photo, spécialité et zone géographique.</div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">💶</span>
-                        <div class="feature-text"><strong>Grille de tarifs</strong><br>3 packs (Conseil 59€, Essentiel 149€, Sur-Mesure) avec descriptions.</div>
-                    </div>
-                </div>
-
-                <p class="modal-section-title">Stack technique</p>
-                <div class="modal-stack">
-                    <span class="stack-chip">HTML5</span>
-                    <span class="stack-chip">CSS3</span>
-                    <span class="stack-chip">Flexbox</span>
-                    <span class="stack-chip">Media Queries</span>
-                    <span class="stack-chip">JavaScript</span>
-                    <span class="stack-chip">Font Awesome 6</span>
-                </div>
-
-                <p class="modal-section-title">Extrait de code — Navigation</p>
-                <div class="modal-code">
-&lt;<span class="code-keyword">header</span> class=<span class="code-str">"entete"</span>&gt;<br>
-&nbsp;&nbsp;&lt;<span class="code-keyword">img</span> src=<span class="code-str">"image/Logo.png"</span> alt=<span class="code-str">"Logo du site"</span>&gt;<br>
-&nbsp;&nbsp;&lt;<span class="code-keyword">nav</span> class=<span class="code-str">"navigation"</span>&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="code-keyword">li</span>&gt;&lt;<span class="code-keyword">a</span> href=<span class="code-str">"Accueil.html"</span>&gt;Accueil&lt;/<span class="code-keyword">a</span>&gt;&lt;/<span class="code-keyword">li</span>&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="code-keyword">li</span>&gt;&lt;<span class="code-keyword">a</span> href=<span class="code-str">"activites.html"</span>&gt;Activités&lt;/<span class="code-keyword">a</span>&gt;&lt;/<span class="code-keyword">li</span>&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="code-keyword">li</span>&gt;&lt;<span class="code-keyword">a</span> href=<span class="code-str">"Gastronomie.html"</span>&gt;Gastronomie&lt;/<span class="code-keyword">a</span>&gt;&lt;/<span class="code-keyword">li</span>&gt;<br>
-&nbsp;&nbsp;&lt;/<span class="code-keyword">nav</span>&gt;<br>
-&lt;/<span class="code-keyword">header</span>&gt;
-                </div>
-
-                <p style="font-size:.8rem;color:var(--muted);line-height:1.8;">
-                    Ce projet m'a permis de construire un site web complet de plusieurs pages, avec une navigation cohérente, une mise en page en grille CSS, et l'intégration d'une librairie d'icônes (Font Awesome). J'ai travaillé sur la structuration sémantique du HTML et l'organisation du CSS en plusieurs fichiers.
-                </p>
-            </div>
-        </div>
+    <div class="hstats">
+      <div><div class="snum">4<sub>+</sub></div><div class="slbl">Projets</div></div>
+      <div><div class="snum">10<sub>+</sub></div><div class="slbl">Technologies</div></div>
+      <div><div class="snum">4</div><div class="slbl">Langues</div></div>
     </div>
+  </div>
+</section>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // ── Mobile nav ─────────────────────────
-        function toggleNav() {
-            const links = document.getElementById('navLinks');
-            const burger = document.getElementById('navBurger');
-            links.classList.toggle('open');
-            burger.classList.toggle('active');
-        }
-        function closeMobileNav() {
-            document.getElementById('navLinks').classList.remove('open');
-            document.getElementById('navBurger').classList.remove('active');
-        }
+<section id="about">
+  <div class="sh"><span class="sn">01</span><h2 class="st">A propos</h2><div class="sl"></div></div>
+  <div class="ag">
+    <div class="at">
+      <p>Je suis un developpeur passionne par le <strong>web et les jeux video</strong>, actuellement en BTS SIO option SLAM. J aime concevoir des experiences numeriques qui melent logique et creativite.</p>
+      <p>Curieux et adaptable, toujours a la recherche de nouveaux defis techniques.</p>
+      <div class="ic">
+        <div class="icard"><div class="iico">&#128205;</div><div><div class="ilbl">Region</div><div class="ival">Ile-de-France</div></div></div>
+        <div class="icard"><div class="iico">&#127891;</div><div><div class="ilbl">Statut</div><div class="ival">Etudiant BTS SIO SLAM</div></div></div>
+      </div>
+    </div>
+    <div class="hg">
+      <div class="hob"><div class="hico">&#127918;</div><div class="hnm">Jeux video</div></div>
+      <div class="hob"><div class="hico">&#9992;</div><div class="hnm">Voyage</div></div>
+      <div class="hob"><div class="hico">&#128187;</div><div class="hnm">Programmation</div></div>
+      <div class="hob"><div class="hico">&#127859;</div><div class="hnm">Cuisine</div></div>
+      <div class="hob" style="grid-column:1/-1"><div class="hico">&#127936;</div><div class="hnm">Basket-ball</div></div>
+    </div>
+  </div>
+</section>
 
-        // ── Project modals ──────────────────────
-        function openProject(id) {
-            const overlay = document.getElementById('modal-' + id);
-            overlay.classList.add('open');
-            document.body.style.overflow = 'hidden';
-            overlay.focus();
-        }
-        function closeModal(id) {
-            document.getElementById('modal-' + id).classList.remove('open');
-            document.body.style.overflow = '';
-        }
-        // Close on overlay click
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', e => {
-                if (e.target === overlay) {
-                    overlay.classList.remove('open');
-                    document.body.style.overflow = '';
-                }
-            });
-        });
-        // Close on Escape
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal-overlay.open').forEach(o => {
-                    o.classList.remove('open');
-                    document.body.style.overflow = '';
-                });
-            }
-        });
+<section id="edu">
+  <div class="sh"><span class="sn">02</span><h2 class="st">Etudes</h2><div class="sl"></div></div>
+  <div class="etl">
+    <div class="ei"><div class="edot"></div><div class="ebox"><div class="eper">2025 - 2027</div><div class="edeg">BTS SIO - option SLAM</div><div class="esch">Lycee LeRebours - Paris 13eme</div></div></div>
+    <div class="ei"><div class="edot"></div><div class="ebox"><div class="eper">2019 - 2021</div><div class="edeg">Baccalaureat General</div><div class="esch">Lycee Jean-Racine - Montdidier</div></div></div>
+  </div>
+</section>
 
-        // ── Scroll reveal ───────────────────────
-        const revealObs = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('visible');
-                // Animate skill bars
-                entry.target.querySelectorAll('.skill-fill[data-val]').forEach(f => {
-                    f.style.transform = 'scaleX(' + f.dataset.val + ')';
-                });
-                revealObs.unobserve(entry.target);
-            });
-        }, { threshold: 0.12 });
+<section id="skills">
+  <div class="sh"><span class="sn">03</span><h2 class="st">Competences</h2><div class="sl"></div></div>
+  <div class="sw">
+    <div>
+      <div class="scat">Back-End</div>
+      <div class="ski"><div class="skh"><span class="skn">Python</span><span class="skp">90%</span></div><div class="skbar"><div class="skf" style="width:90%"></div></div></div>
+      <div class="ski"><div class="skh"><span class="skn">Flask</span><span class="skp">55%</span></div><div class="skbar"><div class="skf" style="width:55%"></div></div></div>
+      <div class="ski"><div class="skh"><span class="skn">PHP</span><span class="skp">25%</span></div><div class="skbar"><div class="skf" style="width:25%"></div></div></div>
+      <div class="ski"><div class="skh"><span class="skn">Java</span><span class="skp">20%</span></div><div class="skbar"><div class="skf" style="width:20%"></div></div></div>
+      <div class="scat" style="margin-top:1.8rem">Front-End</div>
+      <div class="ski"><div class="skh"><span class="skn">HTML5</span><span class="skp">70%</span></div><div class="skbar"><div class="skf" style="width:70%"></div></div></div>
+      <div class="ski"><div class="skh"><span class="skn">CSS3</span><span class="skp">60%</span></div><div class="skbar"><div class="skf" style="width:60%"></div></div></div>
+      <div class="ski"><div class="skh"><span class="skn">JavaScript</span><span class="skp">20%</span></div><div class="skbar"><div class="skf" style="width:20%"></div></div></div>
+      <div class="ski"><div class="skh"><span class="skn">Bootstrap</span><span class="skp">40%</span></div><div class="skbar"><div class="skf" style="width:40%"></div></div></div>
+      <div class="scat" style="margin-top:1.8rem">BDD et Outils</div>
+      <div class="ski"><div class="skh"><span class="skn">SQLite</span><span class="skp">40%</span></div><div class="skbar"><div class="skf" style="width:40%"></div></div></div>
+      <div class="ski"><div class="skh"><span class="skn">GitHub</span><span class="skp">50%</span></div><div class="skbar"><div class="skf" style="width:50%"></div></div></div>
+      <div class="ski"><div class="skh"><span class="skn">Trello</span><span class="skp">60%</span></div><div class="skbar"><div class="skf" style="width:60%"></div></div></div>
+      <div class="scat" style="margin-top:1.8rem;color:#0284c7">Langues</div>
+      <div class="li"><span class="lf">&#127467;&#127479;</span><div><div class="ln">Francais</div><div class="lv">Langue natale</div></div><div class="lds"><div class="ld on"></div><div class="ld on"></div><div class="ld on"></div><div class="ld on"></div><div class="ld on"></div></div></div>
+      <div class="li"><span class="lf">&#127468;&#127463;</span><div><div class="ln">Anglais</div><div class="lv">Professionnel</div></div><div class="lds"><div class="ld on"></div><div class="ld on"></div><div class="ld on"></div><div class="ld on"></div><div class="ld"></div></div></div>
+      <div class="li"><span class="lf">&#127466;&#127480;</span><div><div class="ln">Espagnol</div><div class="lv">Debutant</div></div><div class="lds"><div class="ld on"></div><div class="ld"></div><div class="ld"></div><div class="ld"></div><div class="ld"></div></div></div>
+      <div class="li"><span class="lf">&#127465;&#127466;</span><div><div class="ln">Allemand</div><div class="lv">Debutant</div></div><div class="lds"><div class="ld on"></div><div class="ld"></div><div class="ld"></div><div class="ld"></div><div class="ld"></div></div></div>
+    </div>
+    <div>
+      <p style="font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#64748b;margin-bottom:1.1rem">Competences personnelles</p>
+      <div class="sfg">
+        <span class="stag">Travail equipe</span><span class="stag">Communication</span>
+        <span class="stag">Curiosite</span><span class="stag">Reactivite</span>
+        <span class="stag">Bienveillance</span><span class="stag">Adaptabilite</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+<section id="proj">
+  <div class="sh"><span class="sn">04</span><h2 class="st">Projets</h2><div class="sl"></div></div>
+  <div class="pg">
+    <div class="pc" onclick="op('hero')">
+      <div class="pi" style="background:#e0f2fe"><span class="pt">Python - Terminal</span>&#9876;</div>
+      <div class="pb"><h3 class="ptl">Jeu Heros</h3><p class="pd">Combat tour par tour en Python. 50 PV, attaques aleatoires, 3 potions de soin.</p><div class="ptgs"><span class="ptg">Python</span><span class="ptg">random</span><span class="ptg">Terminal</span></div><div class="pcta">Voir le projet &#8594;</div></div>
+    </div>
+    <div class="pc" onclick="op('mexigo')">
+      <div class="pi" style="background:#fff7ed"><span class="pt">HTML - CSS - JS</span>&#127790;</div>
+      <div class="pb"><h3 class="ptl">MexiGo</h3><p class="pd">Site vitrine responsive agence voyage Mexique. Formulaire, navbar, multi-pages.</p><div class="ptgs"><span class="ptg">HTML5</span><span class="ptg">CSS3</span><span class="ptg">JS</span><span class="ptg">Responsive</span></div><div class="pcta">Voir le projet &#8594;</div></div>
+    </div>
+    <div class="pc" onclick="op('basket')">
+      <div class="pi" style="background:linear-gradient(135deg,#1a1a2e,#16213e)"><span class="pt" style="color:#fb923c;border-color:rgba(249,115,22,.4)">Flask - SQLite - Bootstrap</span>&#127936;</div>
+      <div class="pb"><h3 class="ptl">Bask'Trap <span class="wip">En cours</span></h3><p class="pd">App web full-stack basketball. 5 pages, 3 tables SQLite, routes Flask, carousel Bootstrap.</p><div class="ptgs"><span class="ptg">Python</span><span class="ptg">Flask</span><span class="ptg">SQLite</span><span class="ptg">Bootstrap 5</span></div><div class="pcta">Voir le projet &#8594;</div></div>
+    </div>
+    <div class="pc" onclick="op('duellette')">
+      <div class="pi" style="background:#fdf4ff"><span class="pt">Python - Terminal</span>&#127183;</div>
+      <div class="pb"><h3 class="ptl">Jeu La Duellette</h3><p class="pd">Jeu de cartes duel. 40 cartes distribuees, la plus proche de 7 gagne la manche.</p><div class="ptgs"><span class="ptg">Python</span><span class="ptg">Listes</span><span class="ptg">Fonctions</span></div><div class="pcta">Voir le projet &#8594;</div></div>
+    </div>
+  </div>
+</section>
 
-        // Also trigger bars when skills section enters view
-        const skillsSection = document.getElementById('skills');
-        if (skillsSection) {
-            new IntersectionObserver(entries => {
-                if (entries[0].isIntersecting)
-                    skillsSection.querySelectorAll('.skill-fill[data-val]').forEach(f => {
-                        f.style.transform = 'scaleX(' + f.dataset.val + ')';
-                    });
-            }, { threshold: 0.05 }).observe(skillsSection);
-        }
+<section id="contact">
+  <div class="sh"><span class="sn">05</span><h2 class="st">Contact</h2><div class="sl"></div></div>
+  <div class="cg">
+    <div>
+      <p class="cintro">Interesse par mon profil ?<br><em>Discutons-en.</em></p>
+      <p class="ctxt">Ouvert aux stages, alternances et collaborations sur des projets web.</p>
+    </div>
+    <div class="cls">
+      <a href="mailto:iolayode@lerebours.fr" class="cl"><div class="clic">&#9993;</div><div><div class="cllbl">Email</div><div class="clval">iolayode@lerebours.fr</div></div><span class="clarr">&#8594;</span></a>
+      <a href="tel:+33633231591" class="cl"><div class="clic">&#128241;</div><div><div class="cllbl">Telephone</div><div class="clval">+33 6 33 23 15 91</div></div><span class="clarr">&#8594;</span></a>
+      <a href="https://www.linkedin.com/in/ileri-olayode" target="_blank" class="cl"><div class="clic">&#128188;</div><div><div class="cllbl">LinkedIn</div><div class="clval">ileri-olayode</div></div><span class="clarr">&#8594;</span></a>
+    </div>
+  </div>
+</section>
 
-        // ── Hero entrance ───────────────────────
-        document.querySelectorAll('.hero-content > *').forEach((el, i) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(22px)';
-            el.style.transition = `opacity .7s ease ${i * .14}s, transform.7s ease ${i * .14}s`;
-            requestAnimationFrame(() => requestAnimationFrame(() => {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }));
-        });
-    </script>
+<footer><span class="fn">Ileri Olayode</span><span class="fc">2025 - Tous droits reserves</span></footer>
+<div class="ov" id="ov-hero">
+  <div class="mbox"><button class="mx" onclick="cl('hero')">&#10005;</button>
+    <div class="mhero" style="background:#e0f2fe">&#9876;<span class="mbadge">Python - Terminal - 2025</span></div>
+    <div class="mbody">
+      <h2 class="mttl">Jeu Heros</h2>
+      <div class="mtgs"><span class="mtg">Python</span><span class="mtg">Terminal</span><span class="mtg">Boucles</span><span class="mtg">Fonctions</span><span class="mtg">random</span></div>
+      <div class="msec">Description</div>
+      <p class="mdesc">Combat tour par tour en Python. Le joueur (50 PV) affronte un ennemi (50 PV). Chaque tour : attaque (5-10 degats) ou potion (+15 a 50 PV, saute le tour suivant, 3 disponibles). L ennemi riposte avec 5-15 degats, deux fois si une potion a ete utilisee.</p>
+      <div class="msec">Fonctionnalites</div>
+      <div class="mfeats">
+        <div class="mfeat"><span class="mfic">&#9876;</span><div class="mftxt"><strong>Combat tour par tour</strong><br>Attaques aleatoires joueur et ennemi.</div></div>
+        <div class="mfeat"><span class="mfic">&#129514;</span><div class="mftxt"><strong>3 potions de soin</strong><br>+15 a 50 PV, saute le prochain tour.</div></div>
+        <div class="mfeat"><span class="mfic">&#127922;</span><div class="mftxt"><strong>Degats aleatoires</strong><br>Module random pour varier les combats.</div></div>
+        <div class="mfeat"><span class="mfic">&#127942;</span><div class="mftxt"><strong>Victoire / defaite</strong><br>Detection automatique fin de partie.</div></div>
+      </div>
+      <div class="msec">Stack</div>
+      <div class="mstack"><span class="mchip">Python 3</span><span class="mchip">random</span><span class="mchip">Terminal I/O</span></div>
+      <div class="msec">Extrait de code</div>
+      <div class="mcode"><span class="ck">while</span> vous &gt; 0 <span class="ck">and</span> ennemi &gt; 0:
+    choix = <span class="cf">input</span>(<span class="cs">"Potion ou Attaque ? "</span>)
+    <span class="ck">if</span> choix == <span class="cs">"potion"</span> <span class="ck">and</span> potions &gt; 0:
+        restauration = random.<span class="cf">randint</span>(<span class="cn">15</span>, <span class="cn">50</span>)
+        vous += restauration
+        skip_player_turn = <span class="ck">True</span>
+    <span class="ck">elif</span> choix == <span class="cs">"attaque"</span>:
+        ennemi -= random.<span class="cf">randint</span>(<span class="cn">5</span>, <span class="cn">10</span>)</div>
+    </div>
+  </div>
+</div>
+
+<div class="ov" id="ov-mexigo">
+  <div class="mbox"><button class="mx" onclick="cl('mexigo')">&#10005;</button>
+    <div class="mhero" style="background:#fff7ed">&#127790;<span class="mbadge">HTML - CSS - JS - 2025</span></div>
+    <div class="mbody">
+      <h2 class="mttl">MexiGo</h2>
+      <div class="mtgs"><span class="mtg">HTML5</span><span class="mtg">CSS3</span><span class="mtg">JavaScript</span><span class="mtg">Responsive</span><span class="mtg">Font Awesome</span></div>
+      <div class="msec">Description</div>
+      <p class="mdesc">Site vitrine multi-pages pour agence de voyage fictive specialisee au Mexique. Presentation, equipe conseillers, services, tarifs, temoignages et formulaire de contact. HTML/CSS pur sans framework.</p>
+      <div class="msec">Pages et sections</div>
+      <div class="mfeats">
+        <div class="mfeat"><span class="mfic">&#127968;</span><div class="mftxt"><strong>Accueil</strong><br>Hero, equipe, services, tarifs.</div></div>
+        <div class="mfeat"><span class="mfic">&#127940;</span><div class="mftxt"><strong>Activites</strong><br>Excursions disponibles au Mexique.</div></div>
+        <div class="mfeat"><span class="mfic">&#127869;</span><div class="mftxt"><strong>Gastronomie</strong><br>Cuisine mexicaine et specialites.</div></div>
+        <div class="mfeat"><span class="mfic">&#9993;</span><div class="mftxt"><strong>Contact</strong><br>Formulaire avec validation HTML5.</div></div>
+      </div>
+      <div class="msec">Stack</div>
+      <div class="mstack"><span class="mchip">HTML5</span><span class="mchip">CSS3</span><span class="mchip">Flexbox</span><span class="mchip">Media Queries</span><span class="mchip">JavaScript</span><span class="mchip">Font Awesome 6</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="ov" id="ov-basket">
+  <div class="mbox"><button class="mx" onclick="cl('basket')">&#10005;</button>
+    <div class="mhero" style="background:linear-gradient(135deg,#1a1a2e,#e85d04)">&#127936;<span class="mbadge" style="color:#fb923c;border-color:rgba(249,115,22,.4);background:rgba(26,26,46,.85)">Flask - SQLite - Bootstrap - 2026</span></div>
+    <div class="mbody">
+      <h2 class="mttl">Bask'Trap <span class="wip">En cours</span></h2>
+      <div class="mtgs"><span class="mtg">Python</span><span class="mtg">Flask</span><span class="mtg">SQLite</span><span class="mtg">Jinja2</span><span class="mtg">Bootstrap 5</span><span class="mtg">HTML/CSS</span></div>
+      <div class="msec">Description</div>
+      <p class="mdesc">Application web full-stack dediee au suivi d une equipe de basketball. 5 pages dynamiques connectees a une base SQLite (3 tables : joueurs, matchs, stats), interface Bootstrap avec carousel d actualites, navbar responsive et footer Google Maps.</p>
+      <div class="msec">Fonctionnalites</div>
+      <div class="mfeats">
+        <div class="mfeat"><span class="mfic">&#128101;</span><div class="mftxt"><strong>Gestion joueurs</strong><br>Liste avec nom, poste, numero.</div></div>
+        <div class="mfeat"><span class="mfic">&#127942;</span><div class="mftxt"><strong>Suivi matchs</strong><br>Date, adversaire, resultat, image.</div></div>
+        <div class="mfeat"><span class="mfic">&#128202;</span><div class="mftxt"><strong>Stats detaillees</strong><br>Points, passes, rebonds, fautes.</div></div>
+        <div class="mfeat"><span class="mfic">&#128451;</span><div class="mftxt"><strong>SQLite 3 tables</strong><br>joueurs, matchs, stats + FK.</div></div>
+        <div class="mfeat"><span class="mfic">&#128247;</span><div class="mftxt"><strong>Carousel Bootstrap</strong><br>Actualites avec images rouge et bleue.</div></div>
+        <div class="mfeat"><span class="mfic">&#128205;</span><div class="mftxt"><strong>Footer Google Maps</strong><br>Localisation Ile-de-France + email.</div></div>
+      </div>
+      <div class="msec">Stack</div>
+      <div class="mstack"><span class="mchip">Python 3</span><span class="mchip">Flask</span><span class="mchip">SQLite</span><span class="mchip">Jinja2</span><span class="mchip">Bootstrap 5.3</span><span class="mchip">HTML5</span><span class="mchip">CSS3</span></div>
+      <div class="msec">Extrait - app.py</div>
+      <div class="mcode"><span class="ck">from</span> flask <span class="ck">import</span> Flask, render_template, request
+
+app = <span class="cf">Flask</span>(__name__)
+
+<span class="cf">@app</span>.route(<span class="cs">"/"</span>)
+<span class="ck">def</span> <span class="cf">bonjour</span>(): <span class="ck">return</span> <span class="cf">render_template</span>(<span class="cs">"index.html"</span>)
+
+<span class="cf">@app</span>.route(<span class="cs">"/joueurs"</span>)
+<span class="ck">def</span> <span class="cf">joueurs</span>(): <span class="ck">return</span> <span class="cf">render_template</span>(<span class="cs">"joueurs.html"</span>)
+
+<span class="cf">@app</span>.route(<span class="cs">"/matchs"</span>)
+<span class="ck">def</span> <span class="cf">matchs</span>(): <span class="ck">return</span> <span class="cf">render_template</span>(<span class="cs">"matchs.html"</span>)
+
+<span class="cf">@app</span>.route(<span class="cs">"/stats"</span>)
+<span class="ck">def</span> <span class="cf">stats</span>(): <span class="ck">return</span> <span class="cf">render_template</span>(<span class="cs">"stats.html"</span>)</div>
+    </div>
+  </div>
+</div>
+
+<div class="ov" id="ov-duellette">
+  <div class="mbox"><button class="mx" onclick="cl('duellette')">&#10005;</button>
+    <div class="mhero" style="background:#fdf4ff">&#127183;<span class="mbadge">Python - Terminal - 2025</span></div>
+    <div class="mbody">
+      <h2 class="mttl">Jeu La Duellette</h2>
+      <div class="mtgs"><span class="mtg">Python</span><span class="mtg">Terminal</span><span class="mtg">Listes</span><span class="mtg">Fonctions</span><span class="mtg">random</span></div>
+      <div class="msec">Description</div>
+      <p class="mdesc">Jeu de cartes en duel en Python. 40 cartes (valeurs 1-10, 4 exemplaires) melangees et distribuees entre 2 joueurs. La carte la plus proche de 7 gagne la manche. Deux 7 = egalite, aucun point.</p>
+      <div class="msec">Fonctionnalites</div>
+      <div class="mfeats">
+        <div class="mfeat"><span class="mfic">&#127183;</span><div class="mftxt"><strong>40 cartes</strong><br>Valeurs 1-10, 4 exemplaires melangees.</div></div>
+        <div class="mfeat"><span class="mfic">&#9878;</span><div class="mftxt"><strong>Regle des ecarts</strong><br>La plus proche de 7 gagne.</div></div>
+        <div class="mfeat"><span class="mfic">&#129309;</span><div class="mftxt"><strong>Egalite neutre</strong><br>Deux 7 face a face = aucun point.</div></div>
+        <div class="mfeat"><span class="mfic">&#128200;</span><div class="mftxt"><strong>Score temps reel</strong><br>Affichage du score apres chaque manche.</div></div>
+      </div>
+      <div class="msec">Stack</div>
+      <div class="mstack"><span class="mchip">Python 3</span><span class="mchip">random</span><span class="mchip">Terminal I/O</span></div>
+      <div class="msec">Extrait de code</div>
+      <div class="mcode"><span class="ck">def</span> <span class="cf">gagnant_manche</span>(carte1, carte2):
+    Ecart1 = <span class="cf">abs</span>(<span class="cn">7</span> - carte1)
+    Ecart2 = <span class="cf">abs</span>(<span class="cn">7</span> - carte2)
+    <span class="ck">if</span> carte1 == <span class="cn">7</span> <span class="ck">and</span> carte2 == <span class="cn">7</span>:
+        <span class="ck">return</span> <span class="cn">0</span>
+    <span class="ck">elif</span> Ecart1 &gt; Ecart2:
+        <span class="ck">return</span> <span class="cn">2</span>
+    <span class="ck">else</span>:
+        <span class="ck">return</span> <span class="cn">1</span></div>
+    </div>
+  </div>
+</div>
+<script>
+function op(id) {
+  document.getElementById('ov-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function cl(id) {
+  document.getElementById('ov-' + id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.ov').forEach(function(o) {
+  o.addEventListener('click', function(e) {
+    if (e.target === o) {
+      o.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.ov.open').forEach(function(o) {
+      o.classList.remove('open');
+    });
+    document.body.style.overflow = '';
+  }
+});
+</script>
 </body>
 </html>
-
-

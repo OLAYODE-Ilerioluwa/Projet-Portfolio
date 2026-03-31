@@ -132,7 +132,7 @@ footer{padding:1.5rem 5%;border-top:1px solid rgba(56,189,248,.2);display:flex;j
 .mstack{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
 .mchip{padding:.38rem .9rem;border-radius:7px;font-size:.72rem;font-weight:700;background:rgba(56,189,248,.1);color:#0369a1;border:1px solid rgba(56,189,248,.2)}
 .mcode{background:#0f172a;color:#e2e8f0;border-radius:11px;padding:1.3rem;font-family:monospace;font-size:.78rem;line-height:1.75;margin-top:.5rem;overflow-x:auto;white-space:pre}
-.ck{color:#7dd3fc}.cf{color:#86efac}.cs{color:#fde68a}.cn{color:#c4b5fd}.cc{color:#94a3b8}
+.ck{color:#7dd3fc}.cf{color:#86efac}.cs{color:#fde68a}.cn{color:#c4b5fd}.cc{color:#94a3b8}.ca{color:#f9a8d4}
 @media(max-width:860px){.ag,.sw,.cg{grid-template-columns:1fr;gap:2.5rem}.pg{grid-template-columns:1fr}.mfeats{grid-template-columns:1fr}}
 @media(max-width:600px){nav{padding:.9rem 5%}.links{display:none}#hero{padding:7rem 5% 4rem}.hstats{gap:1.8rem}.ov{padding:.8rem;align-items:flex-end}.mbox{max-height:92vh;border-radius:18px 18px 0 0}.mhero{height:180px;border-radius:18px 18px 0 0}}
 </style>
@@ -271,6 +271,8 @@ footer{padding:1.5rem 5%;border-top:1px solid rgba(56,189,248,.2);display:flex;j
 </section>
 
 <footer><span class="fn">Ileri Olayode</span><span class="fc">2025 - Tous droits reserves</span></footer>
+
+<!-- ░░ MODAL Jeu Heros ░░ -->
 <div class="ov" id="ov-hero">
   <div class="mbox"><button class="mx" onclick="cl('hero')">&#10005;</button>
     <div class="mhero" style="background:#e0f2fe">&#9876;<span class="mbadge">Python - Terminal - 2025</span></div>
@@ -301,6 +303,7 @@ footer{padding:1.5rem 5%;border-top:1px solid rgba(56,189,248,.2);display:flex;j
   </div>
 </div>
 
+<!-- ░░ MODAL MexiGo ░░ -->
 <div class="ov" id="ov-mexigo">
   <div class="mbox"><button class="mx" onclick="cl('mexigo')">&#10005;</button>
     <div class="mhero" style="background:#fff7ed">&#127790;<span class="mbadge">HTML - CSS - JS - 2025</span></div>
@@ -318,10 +321,30 @@ footer{padding:1.5rem 5%;border-top:1px solid rgba(56,189,248,.2);display:flex;j
       </div>
       <div class="msec">Stack</div>
       <div class="mstack"><span class="mchip">HTML5</span><span class="mchip">CSS3</span><span class="mchip">Flexbox</span><span class="mchip">Media Queries</span><span class="mchip">JavaScript</span><span class="mchip">Font Awesome 6</span></div>
+      <div class="msec">Extrait de code</div>
+      <div class="mcode"><span class="cc">&lt;!-- Navbar + Hero --&gt;</span>
+<span class="ca">&lt;header</span> <span class="ck">class</span>=<span class="cs">"entete"</span> <span class="ck">id</span>=<span class="cs">"entete"</span><span class="ca">&gt;</span>
+  <span class="ca">&lt;img</span> <span class="ck">src</span>=<span class="cs">"image/Logo.png"</span> <span class="ck">alt</span>=<span class="cs">"Logo MexiGo"</span><span class="ca">&gt;</span>
+  <span class="ca">&lt;nav</span> <span class="ck">class</span>=<span class="cs">"navigation"</span><span class="ca">&gt;</span>
+    <span class="ca">&lt;li&gt;&lt;a</span> <span class="ck">href</span>=<span class="cs">"Accueil.html"</span> <span class="ck">class</span>=<span class="cs">"active"</span><span class="ca">&gt;</span>Accueil<span class="ca">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="ca">&lt;li&gt;&lt;a</span> <span class="ck">href</span>=<span class="cs">"activites.html"</span><span class="ca">&gt;</span>Activites<span class="ca">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="ca">&lt;li&gt;&lt;a</span> <span class="ck">href</span>=<span class="cs">"Gastronomie.html"</span><span class="ca">&gt;</span>Gastronomie<span class="ca">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="ca">&lt;/nav&gt;</span>
+<span class="ca">&lt;/header&gt;</span>
+
+<span class="cc">&lt;!-- Scroll reveal (JS) --&gt;</span>
+<span class="ca">&lt;script&gt;</span>
+<span class="ck">const</span> observer = <span class="ck">new</span> <span class="cf">IntersectionObserver</span>((entries) <span class="ck">=&gt;</span> {
+  entries.<span class="cf">forEach</span>(e <span class="ck">=&gt;</span> {
+    <span class="ck">if</span> (e.isIntersecting) e.target.classList.<span class="cf">add</span>(<span class="cs">'visible'</span>)
+  })
+}, { threshold: <span class="cn">0.12</span> })
+<span class="ca">&lt;/script&gt;</span></div>
     </div>
   </div>
 </div>
 
+<!-- ░░ MODAL Bask'Trap ░░ -->
 <div class="ov" id="ov-basket">
   <div class="mbox"><button class="mx" onclick="cl('basket')">&#10005;</button>
     <div class="mhero" style="background:linear-gradient(135deg,#1a1a2e,#e85d04)">&#127936;<span class="mbadge" style="color:#fb923c;border-color:rgba(249,115,22,.4);background:rgba(26,26,46,.85)">Flask - SQLite - Bootstrap - 2026</span></div>
@@ -361,6 +384,7 @@ app = <span class="cf">Flask</span>(__name__)
   </div>
 </div>
 
+<!-- ░░ MODAL La Duellette ░░ -->
 <div class="ov" id="ov-duellette">
   <div class="mbox"><button class="mx" onclick="cl('duellette')">&#10005;</button>
     <div class="mhero" style="background:#fdf4ff">&#127183;<span class="mbadge">Python - Terminal - 2025</span></div>
@@ -391,6 +415,7 @@ app = <span class="cf">Flask</span>(__name__)
     </div>
   </div>
 </div>
+
 <script>
 function op(id) {
   document.getElementById('ov-' + id).classList.add('open');

@@ -1,128 +1,82 @@
-# Portfolio — Ileri Olayode
+# Ilerioluwa Olayode
 
-Site personnel en React (Vite). Une seule page, sept sections.
+Développeur junior, en BTS SIO option SLAM au lycée LeRebours à Paris 13e.
+**Je cherche un stage pour 2027.**
 
-## Lancer le projet
+Mon terrain, c'est la donnée : aller la chercher là où elle est, la nettoyer, et
+la rendre exploitable. Le reste du temps, je construis des sites et des petites
+applications web.
 
-```bash
-npm install
-npm run dev
-```
+🔗 **[Voir mon portfolio](https://olayode-ilerioluwa.github.io/Projet-Portfolio/)**
 
-Le site démarre sur http://localhost:5173
+---
 
-## Construire la version de production
+## Ce que j'ai fait de plus concret
 
-```bash
-npm run build
-```
+Un stage chez **Oratis IA** (mai à juin 2026). Leur plateforme vend de la
+prospection immobilière à partir d'une grande base d'agents. Ma mission :
+ouvrir un nouveau marché, le Mexique, en constituant cette base à partir de zéro.
 
-Le résultat est dans `dist/`. `vite.config.js` utilise `base: './'`, donc le site
-fonctionne aussi bien à la racine d'un domaine que dans un sous-dossier
-GitHub Pages, sans rien changer.
+* **11 scrapers Python**, un par réseau immobilier : RE/MAX, Keller Williams,
+  Century 21, eXp, IAD, AMPI, Solili, Netmex, e-inmob, Engel & Völkers, Properstar
+* **~3 600 agents collectés** : nom, coordonnées, ville, agence, mandats
+* **Un schéma unique de 17 colonnes** appliqué aux 11 scrapers, exporté en CSV
+  standardisé, prêt pour un import en base
+* **8 réseaux sur 11 avaient une API JSON**. Je l'ai trouvée dans l'onglet
+  Réseau du navigateur au lieu de scraper le HTML : le code est plus court,
+  plus rapide, et il casse beaucoup moins
 
-## Mettre en ligne sur GitHub Pages
+Un des réseaux était protégé par un CAPTCHA Cloudflare. Je ne l'ai pas
+contourné, et je l'ai écrit dans la documentation du projet avec les quatre
+autres sites que j'ai écartés et la raison de chaque exclusion.
 
-Le déploiement est automatique : `.github/workflows/deploy.yml` reconstruit le
-site et le publie à chaque push sur `main`. Rien à faire à la main.
+---
 
-Adresse du site : <https://olayode-ilerioluwa.github.io/Projet-Portfolio/>
+## Ce que j'utilise
 
-**Mise en place, une seule fois :**
+**Données** · Python, requests, BeautifulSoup, Selenium, pandas, regex, API REST/JSON
 
-1. Envoyer le code :
+**Développement** · HTML, CSS, JavaScript, Java, JavaFX, SQL, Tkinter, WordPress
 
-   ```bash
-   git add .
-   git commit -m "Portfolio en React"
-   git push
-   ```
+**Outils** · Git, GitHub, Trello
 
-2. Sur GitHub : onglet **Settings → Pages**, régler **Source** sur
-   **GitHub Actions** (et non « Deploy from a branch »).
-3. Onglet **Actions** : le déploiement se lance. Au bout d'une minute environ,
-   le site est en ligne.
+**En cours d'apprentissage** · Docker (initiation), React (mon portfolio est écrit avec)
 
-## Contenu du dépôt
+Je préfère écrire ce que je découvre encore plutôt que de le faire passer pour acquis.
 
-Ce dépôt contient à la fois le site et les anciens projets scolaires :
+---
 
-| Dossier | Rôle |
-|---|---|
-| `src/`, `index.html`, `vite.config.js` | le site React |
-| `.github/workflows/` | le déploiement automatique |
-| `JEU-HEROS/`, `JEU_LA_DUELLETE/` | jeux Python |
-| `PROJET_1 - Site_Vitrine/` | projet BTS |
-| `EXERCICE-SOW/` | exercice |
-| `Image/` | captures utilisées par l'ancien portfolio |
+## Mes projets
 
-Ces dossiers ne gênent pas la construction du site : Vite ne compile que ce qui
-part de `index.html`.
+| Projet | Ce que c'est | Où |
+|---|---|---|
+| **Portfolio** | Mon site personnel, en React | `src/` |
+| **Tower of Hell** | Jeu de combat au tour par tour en Java / JavaFX. Hiérarchie de classes complète, progression par niveaux, boss tous les 5 tours | [autre dépôt](https://github.com/OLAYODE-Ilerioluwa/2027SIO_IlerioluwaOLAYODE) |
+| **Jeu Héros** | Combat tour par tour en Python, dans le terminal | `JEU-HEROS/` |
+| **La Duellette** | Jeu de cartes en duel, 40 cartes, en Python | `JEU_LA_DUELLETE/` |
+| **Site vitrine** | Projet BTS : site d'entreprise, de l'analyse du besoin au déploiement | `PROJET_1 - Site_Vitrine/` |
 
-L'ancien portfolio (un `index.html` statique à la racine) a été remplacé par le
-site React. Il reste consultable dans l'historique git.
+---
 
-**Ensuite, pour publier une modification :**
+## Comment je travaille
 
-```bash
-git add .
-git commit -m "Mise à jour du contenu"
-git push
-```
+Je fixe le format de sortie avant de commencer à coder.
 
-> `node_modules/` et `dist/` sont exclus par `.gitignore` : ils sont
-> reconstruits par GitHub, inutile de les envoyer.
+Je teste sur trois lignes avant de lancer sur trois mille.
 
-## Modifier le contenu
+J'écris ce que j'apprends au fur et à mesure : pendant mon stage j'ai tenu un
+document de vocabulaire et d'apprentissages que je complétais chaque semaine.
 
-**Tout le texte est dans `src/data.js`.** Aucun composant à toucher pour changer
-un mot, ajouter un projet ou une étape de parcours — les sections se
-régénèrent à partir de ce fichier.
+Et je sais quand changer d'approche plutôt que m'acharner sur une piste qui ne
+donne rien.
 
-| Ce que tu veux changer | Où |
-|---|---|
-| Nom, accroche, statut, lieu | `profil` |
-| Les 4 chiffres sous le hero | `chiffres` |
-| Le texte « À propos » | `aPropos` |
-| Compétences techniques | `competences` |
-| Langues, certifications | `langues`, `certifications` |
-| Le projet Oratis IA | `projetPrincipal` |
-| Les projets d'école | `projets` |
-| Les projets persos | `projetsPerso` |
-| Formation, stages | `parcours` |
-| « Ma façon de travailler » | `methode` |
-| Email, LinkedIn, GitHub, téléphone | `contact` |
+---
 
-## Ce qui reste à compléter
+## Me contacter
 
-Deux `TODO` sont marqués dans `src/data.js` :
+* **LinkedIn** · [ileri-olayode](https://www.linkedin.com/in/ileri-olayode)
+* **Email** · iolayode@lerebours.fr
 
-1. **L'année 2024 – 2025.** L'entrée de parcours indique « Année en activité
-   professionnelle » sans préciser le poste ni l'employeur. À compléter, même
-   si le travail n'était pas dans l'informatique.
-2. **L'email.** `iolayode@lerebours.fr` est l'adresse du lycée : elle expirera
-   à la fin du BTS.
+---
 
-Les projets de la section « Projets personnels et scolaires » proviennent du
-portfolio précédent (olayode-ilerioluwa.github.io/Projet-Portfolio) et sont à
-revalider.
-
-## Structure
-
-```
-src/
-  data.js              tout le contenu
-  styles.css           toute la mise en forme (pas de framework)
-  App.jsx              assemblage des sections
-  components/
-    Reveal.jsx         apparition au scroll (désactivée si l'OS demande
-                       moins d'animations)
-    Nav.jsx            navigation collante + section active
-    Hero.jsx           accueil + bandeau de chiffres
-    APropos.jsx
-    Competences.jsx
-    Projets.jsx
-    Parcours.jsx
-    Methode.jsx
-    Contact.jsx        contact + pied de page
-```
+<sub>Les notes techniques du site sont dans [DEVELOPPEMENT.md](DEVELOPPEMENT.md).</sub>

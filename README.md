@@ -54,7 +54,9 @@ Je préfère écrire ce que je découvre encore plutôt que de le faire passer p
 | **Tower of Hell** | Jeu de combat au tour par tour en Java / JavaFX. Hiérarchie de classes complète, progression par niveaux, boss tous les 5 tours | [autre dépôt](https://github.com/OLAYODE-Ilerioluwa/2027SIO_IlerioluwaOLAYODE) |
 | **Jeu Héros** | Combat tour par tour en Python, dans le terminal | `JEU-HEROS/` |
 | **La Duellette** | Jeu de cartes en duel, 40 cartes, en Python | `JEU_LA_DUELLETE/` |
-| **Site vitrine** | Projet BTS : site d'entreprise, de l'analyse du besoin au déploiement | `PROJET_1 - Site_Vitrine/` |
+| **MexiGo** | Projet BTS : site vitrine d'une agence de voyage au Mexique, multi-pages, en HTML / CSS / JavaScript | `PROJET_1 - Site_Vitrine/` |
+| **Yuki** | Site vitrine d'un restaurant japonais : réservation en ligne, avis clients et interface d'administration. HTML / CSS / JavaScript et Firebase | `Site_Yuki/` |
+| **SY Motors** | Catalogue en ligne d'un concessionnaire, sous WordPress. Le site n'est plus en ligne, il reste les captures d'écran | `Site_SY-Motors/` |
 
 ---
 

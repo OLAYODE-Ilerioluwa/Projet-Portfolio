@@ -77,6 +77,36 @@ Page dédiée à la cuisine mexicaine (patrimoine UNESCO). Elle comprend :
 
 ---
 
+## Captures d'écran
+
+### Accueil
+
+![Hero de la page d'accueil, Bienvenidos a México](../Image/MexiGo/01-accueil.webp)
+
+![Section équipe, les trois conseillers de l'agence](../Image/MexiGo/02-equipe.webp)
+
+![Grille des services : itinéraires, réservations, assistance, conseils](../Image/MexiGo/03-services.webp)
+
+![Les trois packs tarifaires et les témoignages clients](../Image/MexiGo/04-tarifs.webp)
+
+![Formulaire de contact avec sélection de destination](../Image/MexiGo/05-contact.webp)
+
+### Activités
+
+![Haut de la page activités, avec les statistiques clés](../Image/MexiGo/06-activites.webp)
+
+![Les quatre destinations phares et leurs tarifs indicatifs](../Image/MexiGo/07-destinations.webp)
+
+![Galerie photo interactive par destination](../Image/MexiGo/08-galerie.webp)
+
+### Gastronomie
+
+![Haut de la page gastronomie](../Image/MexiGo/09-gastronomie.webp)
+
+![Les trois plats emblématiques : tacos, guacamole, mole poblano](../Image/MexiGo/10-plats.webp)
+
+---
+
 ## Technologies utilisées
 
 | Technologie | Usage |

@@ -29,6 +29,33 @@ statique.
 
 ---
 
+## Captures d'écran
+
+**Accueil**
+
+![Hero de la page d'accueil du restaurant Yuki](../Image/Yuki/01-accueil.webp)
+
+**Réservation et aperçu du menu, sur la page d'accueil**
+
+![Formulaire de réservation et aperçu du menu](../Image/Yuki/02-reservation.webp)
+
+**La page menu, avec le filtrage par catégorie**
+
+![Page menu avec les filtres entrées, sushis, ramens, desserts, boissons](../Image/Yuki/06-menu.webp)
+
+**La page avis, avec la note moyenne calculée**
+
+![Page des avis clients avec la note moyenne](../Image/Yuki/07-page-avis.webp)
+
+**L'administration, protégée par Firebase Auth**
+
+![Écran de connexion de l'espace d'administration](../Image/Yuki/08-admin.webp)
+
+> Les plats et les avis affichés viennent de la base : les captures montrent le
+> contenu réel de l'environnement de démonstration, qui est volontairement léger.
+
+---
+
 ## Technologies
 
 | Technologie | Usage |

@@ -30,6 +30,17 @@ jobs:
       - run: npm ci
       - run: npm run build
 
+      # Les deux sites statiques sont publies a cote du portfolio, pour qu'on
+      # puisse les consulter en ligne et pas seulement lire leur code.
+      - name: Publier MexiGo et Yuki
+        run: |
+          mkdir -p dist/mexigo dist/yuki
+          cp -r "PROJET_1 - Site_Vitrine/." dist/mexigo/
+          cp -r "Site_Yuki/." dist/yuki/
+          # La page d'entree de MexiGo s'appelle Accueil.html : on la duplique
+          # en index.html pour que /mexigo/ fonctionne sans nom de fichier.
+          cp dist/mexigo/Accueil.html dist/mexigo/index.html
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

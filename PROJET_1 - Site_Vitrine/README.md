@@ -2,6 +2,8 @@
 
 Site vitrine d'une agence de voyage spécialisée au Mexique, réalisé en HTML / CSS / JavaScript vanilla.
 
+🔗 **[Voir le site en ligne](https://olayode-ilerioluwa.github.io/Projet-Portfolio/mexigo/)**
+
 ---
 
 ## Aperçu

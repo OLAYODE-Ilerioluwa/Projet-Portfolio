@@ -1,7 +1,5 @@
 // ============================================================
 //  MexiGo — script.js
-//  Seule responsabilité : validation du formulaire de contact
-//  (header + scroll reveal sont gérés inline dans chaque page)
 // ============================================================
 
 const form = document.querySelector('.formulaire-contact');
